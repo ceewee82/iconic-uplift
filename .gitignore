@@ -6,3 +6,6 @@ dist/
 !.env.example
 .DS_Store
 *.log
+
+# Rohmaterial: liegt lokal + Backup in Dropbox /claude/iconic-uplift/
+docs/assets-src/
