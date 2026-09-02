@@ -1,0 +1,61 @@
+name: Deploy Dev
+
+# Baut die Seite und lädt NUR das Ergebnis (dist/) auf den Hostinger-Dev-Server.
+# Der Quellcode bleibt auf GitHub, auf dem Webspace landet fertiges HTML.
+#
+# Voraussetzung — diese Secrets müssen im Repo hinterlegt sein
+# (GitHub → Settings → Secrets and variables → Actions):
+#   FTP_SERVER    z. B. ftp.deine-dev-domain.tld
+#   FTP_USERNAME  FTP-Benutzer aus dem Hostinger hPanel
+#   FTP_PASSWORD  zugehöriges Passwort
+#   FTP_DIR       Zielverzeichnis, meist public_html/ (mit Slash am Ende)
+#
+# Die Werte legt Christian selbst an — sie gehören nicht ins Repo.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # erlaubt manuelles Auslösen im Actions-Tab
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repo auschecken
+        uses: actions/checkout@v4
+
+      - name: Node einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Abhängigkeiten installieren
+        run: npm ci
+
+      - name: Bauen
+        run: npm run build
+
+      - name: Ergebnis prüfen
+        # Bricht ab, bevor ein leeres Verzeichnis hochgeladen wird und
+        # die Live-Seite überschreibt.
+        run: |
+          test -f dist/index.html || { echo "dist/index.html fehlt — Build fehlgeschlagen"; exit 1; }
+          echo "Build ok:"; du -sh dist
+
+      - name: Auf Hostinger hochladen
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ${{ secrets.FTP_DIR }}
+          # Nur geänderte Dateien übertragen; der Zustand wird serverseitig
+          # in .ftp-deploy-sync-state.json vermerkt.
+          dangerous-clean-slate: false
