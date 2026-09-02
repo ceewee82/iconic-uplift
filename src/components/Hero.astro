@@ -51,29 +51,33 @@ const widths = [640, 1024];
     >
     </div>
 
-    <!-- Trennlinie + Griff -->
-    <div id="hero-divider" class="pointer-events-none absolute" aria-hidden="true">
-      <span class="hero-line"></span>
-      <span class="hero-handle">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25">
+    <!-- Tippfläche: setzt die Trennlinie per Tap/Klick. Bewusst ohne
+         eigenes touch-action — ein Tap kollidiert nicht mit dem Scrollen. -->
+    <div id="hero-surface" class="absolute inset-0"></div>
+
+    <!-- Trennlinie und Griff. Der Griff ist das eigentliche Bedienelement:
+         nur er trägt touch-action: none, damit Ziehen am Griff nicht als
+         Seiten-Scroll interpretiert wird — der Rest des Heros bleibt
+         normal scrollbar. -->
+    <div id="hero-divider" class="absolute">
+      <span class="hero-line" aria-hidden="true"></span>
+      <button
+        id="hero-handle"
+        type="button"
+        class="hero-handle"
+        role="slider"
+        aria-label={hero.a11ySlider}
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="50"
+        aria-orientation="horizontal"
+      >
+        <span class="hero-handle-hit" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
           <path class="hero-arrows-h" d="M9.5 8.5 6 12l3.5 3.5M14.5 8.5 18 12l-3.5 3.5" />
           <path class="hero-arrows-v" d="M8.5 9.5 12 6l3.5 3.5M8.5 14.5 12 18l3.5-3.5" />
         </svg>
-      </span>
-    </div>
-
-    <!-- Bedienelement: Tastatur + Pointer -->
-    <div
-      id="hero-slider"
-      class="absolute inset-0 cursor-ew-resize"
-      role="slider"
-      tabindex="0"
-      aria-label={hero.a11ySlider}
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-valuenow="50"
-      aria-orientation="horizontal"
-    >
+      </button>
     </div>
   </div>
 
@@ -83,8 +87,12 @@ const widths = [640, 1024];
   >
     {hero.labelBefore}
   </p>
+  <!-- Mobil unter dem ersten Label statt daneben: Beide zusammen sind
+       breiter als ein 375-px-Schirm und liefen ineinander. Untereinander
+       passt es auch besser zum senkrechten Split (oben Bestand, unten
+       sell-ready). Ab 768 px wieder rechts. -->
   <p
-    class="pointer-events-none absolute top-28 right-6 text-right text-[0.6rem] tracking-[0.22em] text-[var(--color-gold-light)] md:right-10 md:text-[0.65rem]"
+    class="pointer-events-none absolute top-[8.5rem] left-6 text-left text-[0.6rem] tracking-[0.22em] text-[var(--color-gold-light)] md:top-28 md:right-10 md:left-auto md:text-right md:text-[0.65rem]"
   >
     {hero.labelAfter}
   </p>
@@ -127,6 +135,11 @@ const widths = [640, 1024];
      data-orientation am Container um (Desktop horizontal, Mobile vertikal). */
   #hero-divider {
     color: var(--color-gold-light);
+    pointer-events: none; /* nur der Griff darin ist bedienbar */
+  }
+
+  .hero-handle {
+    pointer-events: auto;
   }
 
   .hero-line {
@@ -141,10 +154,61 @@ const widths = [640, 1024];
     width: 3rem;
     height: 3rem;
     margin: -1.5rem 0 0 -1.5rem;
+    padding: 0;
     border: 1px solid var(--color-gold);
     border-radius: 9999px; /* Kreis — einzige erlaubte Rundung (CLAUDE.md) */
     background: rgba(11, 11, 12, 0.55); /* --black auf 55 % */
     backdrop-filter: blur(4px);
+    color: var(--color-gold-light);
+    cursor: grab;
+    /* Entscheidend fuer Mobil: Der Browser darf Gesten auf dem Griff nicht
+       als Scrollen deuten, sonst bricht er den Drag sofort ab. Gilt nur
+       hier — der uebrige Hero bleibt scrollbar. */
+    touch-action: none;
+  }
+
+  .hero-handle:active {
+    cursor: grabbing;
+  }
+
+  /* Unsichtbare Vergroesserung der Trefferflaeche auf 4,25 rem (68 px),
+     deutlich ueber der 44-px-Empfehlung fuer Touch-Ziele. */
+  .hero-handle-hit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4.25rem;
+    height: 4.25rem;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+  }
+
+  /* Sanfter Puls, solange der Griff noch nicht angefasst wurde — macht
+     mobil sichtbar, dass hier etwas zu bedienen ist. */
+  .hero-handle::after {
+    content: '';
+    position: absolute;
+    inset: -0.5rem;
+    border: 1px solid var(--color-gold);
+    border-radius: 9999px;
+    opacity: 0;
+    animation: hero-handle-pulse 2.8s ease-out infinite;
+  }
+
+  .hero-handle[data-touched='true']::after {
+    animation: none;
+  }
+
+  @keyframes hero-handle-pulse {
+    0% { opacity: 0.5; transform: scale(0.92); }
+    70% { opacity: 0; transform: scale(1.18); }
+    100% { opacity: 0; transform: scale(1.18); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-handle::after {
+      animation: none;
+    }
   }
 
   .hero-handle svg {
@@ -182,21 +246,24 @@ const widths = [640, 1024];
     inset: 0 0 auto 0;
     height: 1px;
   }
+  /* Mobil aus der Textmitte gerückt: mittig läge der Griff genau auf der
+     Headline. Bei 78 % bleibt er gut erreichbar und der Text frei. */
   [data-orientation='vertical'] .hero-handle {
     top: 0;
-    left: 50%;
+    left: 78%;
   }
   [data-orientation='vertical'] .hero-arrows-h {
     display: none;
   }
-  [data-orientation='vertical'] #hero-slider {
-    cursor: ns-resize;
+  [data-orientation='vertical'] .hero-handle {
+    cursor: grab;
   }
 </style>
 
 <script>
   const compare = document.getElementById('hero-compare')!;
-  const slider = document.getElementById('hero-slider')!;
+  const handle = document.getElementById('hero-handle')!;
+  const surface = document.getElementById('hero-surface')!;
 
   const clamp = (n: number) => Math.min(100, Math.max(0, n));
 
@@ -204,7 +271,12 @@ const widths = [640, 1024];
   const setSplit = (next: number) => {
     split = clamp(next);
     compare.style.setProperty('--split', String(split));
-    slider.setAttribute('aria-valuenow', String(Math.round(split)));
+    handle.setAttribute('aria-valuenow', String(Math.round(split)));
+  };
+
+  /** Puls am Griff verstummt, sobald jemand ihn bedient hat. */
+  const markTouched = () => {
+    handle.dataset.touched = 'true';
   };
 
   // --- Ausrichtung: Mobile (< 768 px) vertikal, darüber horizontal ---
@@ -212,12 +284,11 @@ const widths = [640, 1024];
   const syncOrientation = () => {
     const horizontal = mq.matches;
     compare.dataset.orientation = horizontal ? 'horizontal' : 'vertical';
-    slider.setAttribute('aria-orientation', horizontal ? 'horizontal' : 'vertical');
+    handle.setAttribute('aria-orientation', horizontal ? 'horizontal' : 'vertical');
   };
   syncOrientation();
   mq.addEventListener('change', syncOrientation);
 
-  // --- Pointer-Drag ---
   const positionFromEvent = (event: PointerEvent) => {
     const rect = compare.getBoundingClientRect();
     return mq.matches
@@ -225,16 +296,30 @@ const widths = [640, 1024];
       : ((event.clientY - rect.top) / rect.height) * 100;
   };
 
+  // --- Ziehen am Griff -------------------------------------------------
+  // Nur der Griff zieht. Er trägt touch-action: none, deshalb bricht der
+  // Browser die Geste nicht als Scroll ab. Der übrige Hero bleibt damit
+  // auf dem Handy normal scrollbar — vorher lag ein bildschirmfüllendes
+  // Ziehfeld darüber, das jeden vertikalen Wisch abfing und verlor.
   let dragging = false;
 
-  slider.addEventListener('pointerdown', (event) => {
+  /** Zeigerfang ist eine Bequemlichkeit, kein Muss — nie den Ablauf blockieren. */
+  const fangen = (el: Element, id: number) => {
+    try {
+      el.setPointerCapture(id);
+    } catch {
+      /* manche Zeiger lassen sich nicht fangen; Ziehen funktioniert trotzdem */
+    }
+  };
+
+  handle.addEventListener('pointerdown', (event) => {
     dragging = true;
     stopDemo();
-    slider.setPointerCapture(event.pointerId);
-    setSplit(positionFromEvent(event));
+    markTouched();
+    fangen(handle, event.pointerId);
   });
 
-  slider.addEventListener('pointermove', (event) => {
+  handle.addEventListener('pointermove', (event) => {
     if (!dragging) return;
     event.preventDefault();
     setSplit(positionFromEvent(event));
@@ -243,13 +328,70 @@ const widths = [640, 1024];
   const endDrag = (event: PointerEvent) => {
     if (!dragging) return;
     dragging = false;
-    slider.releasePointerCapture(event.pointerId);
+    try {
+      handle.releasePointerCapture(event.pointerId);
+    } catch {
+      /* war nie gefangen */
+    }
   };
-  slider.addEventListener('pointerup', endDrag);
-  slider.addEventListener('pointercancel', endDrag);
+  handle.addEventListener('pointerup', endDrag);
+  handle.addEventListener('pointercancel', endDrag);
 
-  // --- Tastatur ---
-  slider.addEventListener('keydown', (event) => {
+  // --- Tippen auf die Fläche -------------------------------------------
+  // Zweiter Weg zur Bedienung: Ein Tap springt zur getippten Position.
+  // Ein Tap ist keine Wischgeste und kollidiert daher nicht mit dem Scrollen.
+  let downAt: { x: number; y: number } | null = null;
+
+  surface.addEventListener('pointerdown', (event) => {
+    downAt = { x: event.clientX, y: event.clientY };
+    // Auf dem Desktop bleibt das gewohnte Ziehen über die ganze Fläche.
+    if (event.pointerType === 'mouse') {
+      dragging = true;
+      stopDemo();
+      markTouched();
+      // Erst den Wert setzen, dann fangen — sonst verschluckt ein
+      // fehlgeschlagener Zeigerfang den ersten Sprung.
+      setSplit(positionFromEvent(event));
+      fangen(surface, event.pointerId);
+    }
+  });
+
+  surface.addEventListener('pointermove', (event) => {
+    if (!dragging || event.pointerType !== 'mouse') return;
+    setSplit(positionFromEvent(event));
+  });
+
+  surface.addEventListener('pointerup', (event) => {
+    if (event.pointerType === 'mouse') {
+      dragging = false;
+      try {
+        surface.releasePointerCapture(event.pointerId);
+      } catch {
+        /* war nie gefangen */
+      }
+      downAt = null;
+      return;
+    }
+
+    // Touch/Pen: nur als Tap werten, wenn der Finger kaum gewandert ist —
+    // sonst war es ein Scrollversuch und wir mischen uns nicht ein.
+    if (!downAt) return;
+    const gewandert = Math.hypot(event.clientX - downAt.x, event.clientY - downAt.y);
+    downAt = null;
+    if (gewandert > 12) return;
+
+    stopDemo();
+    markTouched();
+    setSplit(positionFromEvent(event));
+  });
+
+  surface.addEventListener('pointercancel', () => {
+    downAt = null;
+    dragging = false;
+  });
+
+  // --- Tastatur ---------------------------------------------------------
+  handle.addEventListener('keydown', (event) => {
     const step = event.shiftKey ? 10 : 2;
     const keys: Record<string, number> = {
       ArrowLeft: -step,
@@ -260,14 +402,17 @@ const widths = [640, 1024];
     if (event.key in keys) {
       event.preventDefault();
       stopDemo();
+      markTouched();
       setSplit(split + keys[event.key]);
     } else if (event.key === 'Home') {
       event.preventDefault();
       stopDemo();
+      markTouched();
       setSplit(0);
     } else if (event.key === 'End') {
       event.preventDefault();
       stopDemo();
+      markTouched();
       setSplit(100);
     }
   });
