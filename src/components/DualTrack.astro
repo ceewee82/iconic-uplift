@@ -1,0 +1,145 @@
+---
+// Sektion 6 — Dual Track. Spec: DEV_SPEC §4 Zeile 6.
+// Zwei Karten (mobil gestapelt). Beim Hover verstärkt sich der Radial-Glow,
+// der Pfeil schiebt sich 4 px nach rechts.
+import { dualTrack } from '../content/de/home';
+---
+
+<section id="dual-track" class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+  <div class="mx-auto max-w-[100rem] px-6 py-28 md:px-10 md:py-36">
+    <div class="grid gap-px bg-[var(--color-line)] md:grid-cols-2" data-reveal-group>
+      {
+        dualTrack.map((track) => (
+          <a class="track" href={track.href}>
+            <span class="track-glow" aria-hidden="true" />
+
+            <span class="track-body">
+              <span class="track-eyebrow">{track.eyebrow}</span>
+
+              <h3 class="track-title">{track.title}</h3>
+
+              <span class="track-text">{track.text}</span>
+
+              <span class="track-link">
+                {track.linkLabel}
+                <svg
+                  class="track-arrow"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.25"
+                  aria-hidden="true"
+                >
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .track {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: var(--color-surface);
+    padding: 3rem 2rem;
+    text-decoration: none;
+  }
+
+  @media (min-width: 768px) {
+    .track {
+      padding: 4.5rem 3.5rem;
+    }
+  }
+
+  /* Radial-Glow: golden, dezent — verstärkt sich beim Hover.
+     Keine Bewegung, nur Deckkraft, damit nichts über 32 px wandert. */
+  .track-glow {
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 34rem;
+    height: 34rem;
+    background: radial-gradient(
+      circle,
+      rgba(176, 141, 87, 0.22) 0%,
+      rgba(176, 141, 87, 0) 68%
+    );
+    opacity: 0.45;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+
+  .track:hover .track-glow,
+  .track:focus-visible .track-glow {
+    opacity: 1;
+  }
+
+  .track-body {
+    position: relative; /* über dem Glow */
+    display: block;
+  }
+
+  .track-eyebrow {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.24em;
+    color: var(--color-gold);
+  }
+
+  .track-title {
+    margin-top: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1.875rem;
+    line-height: 1.15;
+    color: var(--color-text);
+  }
+
+  @media (min-width: 768px) {
+    .track-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .track-text {
+    display: block;
+    margin-top: 1.5rem;
+    max-width: 34rem;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-text-soft);
+  }
+
+  .track-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--color-text-soft);
+    transition: color 0.3s ease;
+  }
+
+  .track:hover .track-link,
+  .track:focus-visible .track-link {
+    color: var(--color-gold-light);
+  }
+
+  .track-arrow {
+    width: 1.15rem;
+    height: 1.15rem;
+    transition: transform 0.3s ease;
+  }
+
+  /* DEV_SPEC §4: Pfeil schiebt 4 px */
+  .track:hover .track-arrow,
+  .track:focus-visible .track-arrow {
+    transform: translateX(4px);
+  }
+</style>
