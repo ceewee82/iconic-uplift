@@ -1,0 +1,255 @@
+---
+// Unterseite Owners — Copy: docs/website-copy-de.md §3
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/PageHero.astro';
+import { owners } from '../content/de/pages';
+import { legal } from '../content/de/global';
+---
+
+<Page title={owners.seo.title} description={owners.seo.description}>
+  <PageHero {...owners.hero} />
+
+  <!-- 3.2 Drei Wege -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <h2 class="text-3xl leading-[1.15] sm:text-4xl" data-reveal>{owners.paths.h2}</h2>
+      <ul class="mt-14 grid gap-px bg-[var(--color-line)] md:grid-cols-3" data-reveal-group>
+        {
+          owners.paths.items.map((item, i) => (
+            <li class="bg-[var(--color-surface)] p-8 md:p-10">
+              <span class="font-[var(--font-display)] text-[0.7rem] text-[var(--color-gold)]">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 class="mt-5 font-[var(--font-display)] text-xl md:text-2xl">{item.title}</h3>
+              <p class="mt-4 text-sm leading-relaxed text-[var(--color-text-soft)]">
+                {item.text}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3.3 Warum mit uns + 3.4 Ablauf -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <div class="grid gap-16 lg:grid-cols-2 lg:gap-20">
+        <div>
+          <h2 class="text-3xl leading-[1.15] sm:text-4xl" data-reveal>{owners.why.h2}</h2>
+          <ul class="mt-10 space-y-6" data-reveal-group>
+            {
+              owners.why.items.map((item) => (
+                <li class="flex gap-4 border-b border-[var(--color-line)] pb-6">
+                  <span class="mt-2 size-1.5 shrink-0 rounded-full bg-[var(--color-gold)]" aria-hidden="true" />
+                  <span class="text-sm leading-relaxed text-[var(--color-text-soft)]">{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-3xl leading-[1.15] sm:text-4xl" data-reveal>{owners.journey.h2}</h2>
+          <ol class="mt-10 space-y-6" data-reveal-group>
+            {
+              owners.journey.steps.map((step, i) => (
+                <li class="flex gap-5 border-b border-[var(--color-line)] pb-6">
+                  <span class="font-[var(--font-display)] text-sm text-[var(--color-gold)]">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span class="text-sm leading-relaxed text-[var(--color-text-soft)]">{step}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3.5 CTA mit Assessment-Formular -->
+  <section id="assessment" class="assess border-b border-[var(--color-line)]">
+    <span class="assess-glow" aria-hidden="true"></span>
+    <div class="relative mx-auto max-w-[100rem] px-6 py-20 md:px-10 md:py-24">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-3xl leading-[1.15] sm:text-4xl" data-reveal>{owners.form.h2}</h2>
+
+        <form id="assess-form" class="mt-12" novalidate data-reveal data-reveal-delay="0.08">
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="field">
+              <span class="field-label">Name</span>
+              <input type="text" name="name" autocomplete="name" required />
+            </label>
+            <label class="field">
+              <span class="field-label">E-Mail</span>
+              <input type="email" name="email" autocomplete="email" required />
+            </label>
+          </div>
+
+          <label class="field mt-5 block">
+            <span class="field-label">Community</span>
+            <select name="community" required>
+              <option value="">Bitte wählen</option>
+              {owners.form.communities.map((c) => <option value={c}>{c}</option>)}
+            </select>
+          </label>
+
+          <div class="hp" aria-hidden="true">
+            <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <button type="submit" class="submit">{owners.form.submit}</button>
+          <p id="assess-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="mt-8 text-xs leading-relaxed text-[var(--color-text-dim)]">
+          {legal.disclaimer}
+        </p>
+      </div>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .assess {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-black);
+  }
+
+  .assess-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48rem;
+    height: 48rem;
+    max-width: 150vw;
+    max-height: 150vw;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(224, 188, 122, 0.1) 0%, rgba(224, 188, 122, 0) 62%);
+    pointer-events: none;
+  }
+
+  .field {
+    display: block;
+    text-align: left;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.85rem 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .field select option {
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .field input:focus,
+  .field select:focus {
+    outline: none;
+    border-bottom-color: var(--color-gold);
+  }
+
+  .field input[aria-invalid='true'],
+  .field select[aria-invalid='true'] {
+    border-bottom-color: #a5563f;
+  }
+
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .submit {
+    margin-top: 2.25rem;
+    padding: 1rem 2.5rem;
+    background: var(--color-gold);
+    border: 1px solid var(--color-gold);
+    color: var(--color-black);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit:hover:not(:disabled) {
+    background: var(--color-gold-light);
+  }
+
+  .submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .form-status {
+    margin-top: 1.25rem;
+    min-height: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+  }
+
+  .form-status[data-tone='error'] {
+    color: #c98b76;
+  }
+</style>
+
+<script>
+  import { microcopy } from '../content/de/global';
+
+  const form = document.getElementById('assess-form') as HTMLFormElement | null;
+  const status = document.getElementById('assess-status');
+
+  if (form && status) {
+    const mounted = Date.now();
+    // TODO (DEV_SPEC §8): An einen Endpoint senden, sobald das Backend
+    // feststeht. Bis dahin meldet das Formular ehrlich, dass nicht
+    // versendet wird — statt still zu scheitern.
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      if (String(data.get('website') ?? '') || Date.now() - mounted < 2000) return;
+
+      let valid = true;
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[required]').forEach((el) => {
+        const ok = el.checkValidity() && el.value.trim() !== '';
+        el.setAttribute('aria-invalid', String(!ok));
+        if (!ok) valid = false;
+      });
+
+      if (!valid) {
+        status.textContent = microcopy.fieldError;
+        status.dataset.tone = 'error';
+        return;
+      }
+
+      status.textContent =
+        'Der Versand wird gerade eingerichtet. Schreiben Sie uns solange direkt an office@iconicuplift.com.';
+      status.dataset.tone = 'error';
+    });
+  }
+</script>

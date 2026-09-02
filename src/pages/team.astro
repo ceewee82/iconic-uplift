@@ -1,0 +1,198 @@
+---
+// Unterseite Team — Copy: docs/website-copy-de.md §7
+import { Picture } from 'astro:assets';
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { teamPage } from '../content/de/pages';
+import { team } from '../content/de/home';
+
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/img/team/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+
+const photoFor = (file: string) =>
+  file ? photos[`../assets/img/team/${file}`]?.default : undefined;
+---
+
+<Page title={teamPage.seo.title} description={teamPage.seo.description}>
+  <PageHero {...teamPage.hero} />
+
+  <!-- 7.2 Personen -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <ul class="grid gap-10 sm:grid-cols-3 md:gap-12" data-reveal-group>
+        {
+          team.members.map((member) => {
+            const photo = photoFor(member.photo);
+            const bio = teamPage.bios[member.name];
+            return (
+              <li>
+                <div class="portrait">
+                  {photo ? (
+                    <Picture
+                      src={photo}
+                      formats={['avif', 'webp']}
+                      widths={[400, Math.min(800, photo.width)]}
+                      sizes="(min-width: 640px) 30vw, 90vw"
+                      alt={`${member.name} — ${member.role}`}
+                      class="portrait-img"
+                    />
+                  ) : (
+                    <span class="portrait-initials" aria-hidden="true">
+                      {member.name.split(' ').map((p) => p[0]).join('')}
+                    </span>
+                  )}
+                  <span class="portrait-vignette" aria-hidden="true" />
+                </div>
+                <h2 class="mt-6 font-[var(--font-display)] text-xl text-[var(--color-text)]">
+                  {member.name}
+                </h2>
+                <p class="mt-2 text-sm leading-relaxed text-[var(--color-gold-light)]">
+                  {member.role}
+                </p>
+                {bio && (
+                  <p class="mt-4 text-sm leading-relaxed text-[var(--color-text-soft)]">{bio}</p>
+                )}
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7.3 Powered by -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+        {team.poweredByLabel}
+      </p>
+
+      <ul class="mt-10 grid gap-px bg-[var(--color-line)] sm:grid-cols-2 lg:grid-cols-4" data-reveal-group>
+        {
+          team.poweredBy.map((brand) => (
+            <li>
+              <a
+                class="brand"
+                href={brand.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="brand-name">{brand.name}</span>
+                <span class="brand-role">{teamPage.poweredByRoles[brand.name]}</span>
+                <svg class="brand-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-10 max-w-2xl text-sm leading-relaxed text-[var(--color-text-soft)]" data-reveal>
+        {teamPage.poweredByLine}
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    h2="Sprechen wir über Ihr Projekt."
+    secondary="call"
+    disclaimer={false}
+  />
+</Page>
+
+<style>
+  .portrait {
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--color-line);
+    background:
+      radial-gradient(80% 70% at 20% 30%, rgba(176, 141, 87, 0.16) 0%, rgba(18, 18, 16, 0) 70%),
+      var(--color-surface);
+  }
+
+  /* Gleicher Look wie auf der Startseite (siehe Team.astro) */
+  .portrait :global(.portrait-img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    filter: grayscale(1) contrast(1.2) brightness(0.8);
+  }
+
+  .portrait-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(76% 60% at 50% 36%, rgba(11, 11, 12, 0) 0%, rgba(11, 11, 12, 0.75) 100%),
+      linear-gradient(to bottom, rgba(11, 11, 12, 0.08) 0%, rgba(11, 11, 12, 0.6) 100%);
+    pointer-events: none;
+  }
+
+  .portrait-initials {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    letter-spacing: 0.12em;
+    color: var(--color-text-dim);
+  }
+
+  .brand {
+    position: relative;
+    display: block;
+    height: 100%;
+    background: var(--color-surface);
+    padding: 2rem 1.75rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .brand:hover,
+  .brand:focus-visible {
+    background: #161613;
+  }
+
+  .brand-name {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+  }
+
+  .brand:hover .brand-name,
+  .brand:focus-visible .brand-name {
+    color: var(--color-gold-light);
+  }
+
+  .brand-role {
+    display: block;
+    margin-top: 0.6rem;
+    font-size: 0.75rem;
+    color: var(--color-text-soft);
+  }
+
+  .brand-arrow {
+    position: absolute;
+    top: 2rem;
+    right: 1.75rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    color: var(--color-text-dim);
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .brand:hover .brand-arrow,
+  .brand:focus-visible .brand-arrow {
+    opacity: 1;
+  }
+</style>

@@ -37,18 +37,24 @@ import { brand, nav, cta } from '../content/de/global';
           nav.langs.map((lang, i) => (
             <>
               {i > 0 && <span class="text-[var(--color-text-dim)]">·</span>}
-              <a
-                href={lang.href}
-                aria-current={lang.active ? 'true' : undefined}
-                class:list={[
-                  'transition-colors',
-                  lang.active
-                    ? 'text-[var(--color-text)]'
-                    : 'text-[var(--color-text-dim)] hover:text-[var(--color-text-soft)]',
-                ]}
-              >
-                {lang.label}
-              </a>
+              {lang.available ? (
+                <a
+                  href={lang.href}
+                  aria-current={lang.active ? 'true' : undefined}
+                  class:list={[
+                    'transition-colors',
+                    lang.active
+                      ? 'text-[var(--color-text)]'
+                      : 'text-[var(--color-text-dim)] hover:text-[var(--color-text-soft)]',
+                  ]}
+                >
+                  {lang.label}
+                </a>
+              ) : (
+                <span class="text-[var(--color-text-dim)] opacity-50" title="English version coming soon">
+                  {lang.label}
+                </span>
+              )}
             </>
           ))
         }

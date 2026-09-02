@@ -1,0 +1,36 @@
+---
+// Kopf jeder Unterseite: Eyebrow, H1, Fließtext.
+interface Props {
+  eyebrow: string;
+  h1: string;
+  sub?: string;
+}
+
+const { eyebrow, h1, sub } = Astro.props;
+---
+
+<section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+  <div class="mx-auto max-w-[100rem] px-6 py-20 md:px-10 md:py-28">
+    <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+      {eyebrow}
+    </p>
+    <h1
+      class="mt-7 max-w-4xl text-4xl leading-[1.08] sm:text-5xl md:text-6xl"
+      data-reveal
+      data-reveal-delay="0.08"
+    >
+      {h1}
+    </h1>
+    {
+      sub && (
+        <p
+          class="mt-8 max-w-2xl text-base leading-relaxed text-[var(--color-text-soft)] md:text-lg"
+          data-reveal
+          data-reveal-delay="0.16"
+        >
+          {sub}
+        </p>
+      )
+    }
+  </div>
+</section>

@@ -1,0 +1,131 @@
+---
+// Unterseite Process (PrimeRefine) — Copy: docs/website-copy-de.md §4
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { process } from '../content/de/pages';
+---
+
+<Page title={process.seo.title} description={process.seo.description}>
+  <PageHero {...process.hero} />
+
+  <!-- 4.2 Die fünf Phasen im Detail -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <ol class="phases" data-reveal-group>
+        {
+          process.phases.map((phase, i) => (
+            <li class="phase">
+              <div class="phase-head">
+                <span class="phase-no">{String(i + 1).padStart(2, '0')}</span>
+                <h2 class="phase-name">{phase.name}</h2>
+                <p class="phase-claim">{phase.claim}</p>
+              </div>
+              <div class="phase-body">
+                <p class="phase-what">{phase.what}</p>
+                <p class="phase-get">
+                  <span class="phase-get-label">Sie bekommen</span>
+                  {phase.get}
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4.3 Prinzipien-Leiste -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-12 md:px-10 md:py-14">
+      <ul class="flex flex-wrap items-center gap-x-10 gap-y-4" data-reveal>
+        {
+          process.principles.map((principle, i) => (
+            <li class="flex items-center gap-10 text-xs text-[var(--color-text-soft)]">
+              {i > 0 && <span class="hidden h-3 w-px bg-[var(--color-line)] md:block" aria-hidden="true" />}
+              {principle}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4.4 CTA -->
+  <CtaBand
+    h2="Investor Pack oder Deal einreichen."
+    body="Die Methode im Detail, mit Reporting-Beispiel und Kriterienkatalog — oder direkt ein Objekt zur Prüfung."
+    secondary="deal"
+  />
+</Page>
+
+<style>
+  .phases {
+    display: grid;
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    background: var(--color-line);
+    list-style: none;
+  }
+
+  .phase {
+    display: grid;
+    gap: 1.5rem;
+    background: var(--color-surface);
+    padding: 2rem 1.75rem;
+  }
+
+  @media (min-width: 900px) {
+    .phase {
+      grid-template-columns: 34fr 66fr;
+      gap: 3rem;
+      padding: 2.75rem 2.5rem;
+    }
+  }
+
+  .phase-no {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    color: var(--color-gold);
+  }
+
+  .phase-name {
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    letter-spacing: 0.12em;
+    color: var(--color-text);
+  }
+
+  .phase-claim {
+    margin-top: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-gold-light);
+  }
+
+  .phase-what {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--color-text-soft);
+  }
+
+  .phase-get {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--color-line);
+    padding-top: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .phase-get-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+</style>

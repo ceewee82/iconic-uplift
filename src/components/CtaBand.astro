@@ -1,0 +1,95 @@
+---
+// Wiederverwendbarer Abschluss-CTA für Unterseiten.
+// Der Disclaimer steht laut CLAUDE.md Regel 1 auf jeder investorennahen Seite.
+import { cta, legal } from '../content/de/global';
+
+interface Props {
+  h2: string;
+  body?: string;
+  /** Zweitbutton, z. B. "Assessment Call buchen" auf der Investors-Seite */
+  secondary?: 'deal' | 'call' | 'none';
+  /** Disclaimer ausblenden, wenn die Seite ihn schon trägt */
+  disclaimer?: boolean;
+}
+
+const { h2, body, secondary = 'deal', disclaimer = true } = Astro.props;
+---
+
+<section class="cta-band border-b border-[var(--color-line)]">
+  <span class="cta-glow" aria-hidden="true"></span>
+
+  <div class="relative mx-auto max-w-[100rem] px-6 py-20 md:px-10 md:py-24">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl leading-[1.15] sm:text-4xl" data-reveal>{h2}</h2>
+
+      {
+        body && (
+          <p
+            class="mt-6 text-base leading-relaxed text-[var(--color-text-soft)]"
+            data-reveal
+            data-reveal-delay="0.08"
+          >
+            {body}
+          </p>
+        )
+      }
+
+      <div
+        class="mt-10 flex flex-wrap items-center justify-center gap-4"
+        data-reveal
+        data-reveal-delay="0.16"
+      >
+        <a
+          href="/#investor-pack"
+          class="border border-[var(--color-gold)] bg-[var(--color-gold)] px-7 py-3.5 text-xs tracking-[0.12em] text-[var(--color-black)] uppercase transition-colors duration-300 hover:bg-[var(--color-gold-light)]"
+        >
+          {cta.primary}
+        </a>
+
+        {
+          secondary !== 'none' && (
+            <a
+              href="/contact"
+              class="border border-[var(--color-line)] px-7 py-3.5 text-xs tracking-[0.12em] text-[var(--color-text-soft)] uppercase transition-colors duration-300 hover:border-[var(--color-gold)] hover:text-[var(--color-text)]"
+            >
+              {secondary === 'call' ? cta.tertiary : cta.secondary}
+            </a>
+          )
+        }
+      </div>
+
+      {
+        disclaimer && (
+          <p class="mt-10 text-xs leading-relaxed text-[var(--color-text-dim)]">
+            {legal.disclaimer}
+          </p>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-black);
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48rem;
+    height: 48rem;
+    max-width: 150vw;
+    max-height: 150vw;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle,
+      rgba(224, 188, 122, 0.1) 0%,
+      rgba(224, 188, 122, 0) 62%
+    );
+    pointer-events: none;
+  }
+</style>

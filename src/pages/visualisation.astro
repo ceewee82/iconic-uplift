@@ -1,0 +1,53 @@
+---
+// Unterseite Visualisation — Copy: docs/website-copy-de.md §6
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { visualisation } from '../content/de/pages';
+---
+
+<Page title={visualisation.seo.title} description={visualisation.seo.description}>
+  <PageHero {...visualisation.hero} />
+
+  <!-- 6.2 Blöcke -->
+  <section class="vis border-b border-[var(--color-line)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <ul class="grid gap-px bg-[var(--color-line)] md:grid-cols-2" data-reveal-group>
+        {
+          visualisation.blocks.map((block, i) => (
+            <li class="bg-[var(--color-surface)] p-8 md:p-12">
+              <span class="font-[var(--font-display)] text-[0.7rem] text-[var(--color-gold)]">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h2 class="mt-5 font-[var(--font-display)] text-xl md:text-2xl">{block.title}</h2>
+              <p class="mt-4 max-w-lg text-sm leading-relaxed text-[var(--color-text-soft)]">
+                {block.text}
+              </p>
+              {block.note && (
+                <p class="mt-5 text-[0.6rem] tracking-[0.2em] text-[var(--color-text-dim)]">
+                  {block.note.toUpperCase()}
+                </p>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6.3 CTA — die VR-Demo folgt noch (DEV_SPEC §8) -->
+  <CtaBand
+    h2="Musterprojekt ansehen."
+    body="Der VR-Walkthrough wird derzeit produziert. Bis dahin zeigen wir Ihnen die Visualisierungen im persönlichen Gespräch."
+    secondary="call"
+  />
+</Page>
+
+<style>
+  /* Golden-Hour-Anmutung wie in der Showcase-Sektion der Startseite */
+  .vis {
+    background:
+      radial-gradient(110% 70% at 70% 0%, rgba(176, 141, 87, 0.14) 0%, rgba(11, 11, 12, 0) 60%),
+      var(--color-black);
+  }
+</style>

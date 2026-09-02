@@ -73,9 +73,14 @@ const photoFor = (file: string) =>
       </span>
       {
         team.poweredBy.map((brand) => (
-          <span class="font-[var(--font-display)] text-xs tracking-[0.12em] text-[var(--color-text-soft)]">
-            {brand}
-          </span>
+          <a
+            href={brand.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-[var(--font-display)] text-xs tracking-[0.12em] text-[var(--color-text-soft)] transition-colors hover:text-[var(--color-gold-light)]"
+          >
+            {brand.name}
+          </a>
         ))
       }
     </div>

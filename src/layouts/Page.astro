@@ -1,0 +1,24 @@
+---
+// Gerüst für alle Unterseiten: Base-Layout plus Nav und Footer.
+// Die Startseite nutzt Base direkt, weil sie den Hero randlos unter die
+// transparente Nav legt — hier beginnt der Inhalt dagegen unterhalb.
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: 'de' | 'en';
+}
+
+const { title, description, lang = 'de' } = Astro.props;
+---
+
+<Base title={title} description={description} lang={lang}>
+  <Nav />
+  <main class="pt-20">
+    <slot />
+  </main>
+  <Footer />
+</Base>

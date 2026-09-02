@@ -1,0 +1,283 @@
+---
+// Unterseite Contact — Copy: docs/website-copy-de.md §8
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/PageHero.astro';
+import { contact } from '../content/de/pages';
+import { legal, nav } from '../content/de/global';
+---
+
+<Page title={contact.seo.title} description={contact.seo.description}>
+  <PageHero eyebrow={contact.hero.eyebrow} h1={contact.hero.h1} />
+
+  <!-- Zwei Wege -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <ul class="grid gap-px bg-[var(--color-line)] md:grid-cols-2" data-reveal-group>
+        {
+          contact.ways.map((way) => (
+            <li>
+              <a class="way" href={way.href}>
+                <span class="way-title">{way.title}</span>
+                <span class="way-text">{way.text}</span>
+                <span class="way-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Direktkontakt, Standorte, Formular -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <div class="grid gap-16 lg:grid-cols-[38fr_62fr] lg:gap-20">
+        <div data-reveal>
+          <p class="text-[0.6rem] tracking-[0.24em] text-[var(--color-text-dim)]">DIREKT</p>
+          <a
+            href={`mailto:${contact.email}`}
+            class="mt-4 block font-[var(--font-display)] text-lg text-[var(--color-text)] transition-colors hover:text-[var(--color-gold-light)] md:text-xl"
+          >
+            {contact.email}
+          </a>
+          <a
+            href={nav.overlay.social[0].href}
+            class="mt-3 inline-block text-sm text-[var(--color-text-soft)] transition-colors hover:text-[var(--color-text)]"
+          >
+            LinkedIn
+          </a>
+
+          <p class="mt-12 text-[0.6rem] tracking-[0.24em] text-[var(--color-text-dim)]">STANDORTE</p>
+          <ul class="mt-4 space-y-3">
+            {
+              contact.locations.map((loc) => (
+                <li class="text-sm text-[var(--color-text-soft)]">
+                  <span class="font-[var(--font-display)] text-[var(--color-text)]">{loc.city}</span>
+                  <span class="text-[var(--color-text-dim)]"> · {loc.role}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <form id="contact-form" class="w-full" novalidate data-reveal data-reveal-delay="0.08">
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="field">
+              <span class="field-label">Name</span>
+              <input type="text" name="name" autocomplete="name" required />
+            </label>
+            <label class="field">
+              <span class="field-label">E-Mail</span>
+              <input type="email" name="email" autocomplete="email" required />
+            </label>
+          </div>
+
+          <label class="field mt-5 block">
+            <span class="field-label">Ich bin</span>
+            <select name="role" required>
+              <option value="">Bitte wählen</option>
+              {contact.form.roles.map((r) => <option value={r}>{r}</option>)}
+            </select>
+          </label>
+
+          <label class="field mt-5 block">
+            <span class="field-label">Nachricht</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+
+          <div class="hp" aria-hidden="true">
+            <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <button type="submit" class="submit">{contact.form.submit}</button>
+          <p id="contact-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <p class="mt-16 max-w-3xl text-xs leading-relaxed text-[var(--color-text-dim)]">
+        {legal.disclaimer}
+      </p>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .way {
+    position: relative;
+    display: block;
+    height: 100%;
+    background: var(--color-surface);
+    padding: 2.5rem 2rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  @media (min-width: 768px) {
+    .way {
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  .way:hover,
+  .way:focus-visible {
+    background: #161613;
+  }
+
+  .way-title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+  }
+
+  .way:hover .way-title,
+  .way:focus-visible .way-title {
+    color: var(--color-gold-light);
+  }
+
+  .way-text {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--color-text-soft);
+  }
+
+  .way-arrow {
+    position: absolute;
+    top: 2.5rem;
+    right: 2rem;
+    color: var(--color-text-dim);
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .way:hover .way-arrow,
+  .way:focus-visible .way-arrow {
+    transform: translateX(4px);
+    color: var(--color-gold-light);
+  }
+
+  .field {
+    display: block;
+    text-align: left;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.85rem 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+
+  .field select option {
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-bottom-color: var(--color-gold);
+  }
+
+  .field [aria-invalid='true'] {
+    border-bottom-color: #a5563f;
+  }
+
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .submit {
+    margin-top: 2.25rem;
+    padding: 1rem 2.5rem;
+    background: var(--color-gold);
+    border: 1px solid var(--color-gold);
+    color: var(--color-black);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit:hover {
+    background: var(--color-gold-light);
+  }
+
+  .form-status {
+    margin-top: 1.25rem;
+    min-height: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+  }
+
+  .form-status[data-tone='error'] {
+    color: #c98b76;
+  }
+</style>
+
+<script>
+  import { microcopy } from '../content/de/global';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('contact-status');
+
+  if (form && status) {
+    const mounted = Date.now();
+    // TODO (DEV_SPEC §8): An einen Endpoint senden, sobald das Backend
+    // feststeht. Bis dahin meldet das Formular ehrlich, dass nicht
+    // versendet wird — statt still zu scheitern.
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      if (String(data.get('website') ?? '') || Date.now() - mounted < 2000) return;
+
+      let valid = true;
+      form
+        .querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]')
+        .forEach((el) => {
+          const ok = el.checkValidity() && el.value.trim() !== '';
+          el.setAttribute('aria-invalid', String(!ok));
+          if (!ok) valid = false;
+        });
+
+      if (!valid) {
+        status.textContent = microcopy.fieldError;
+        status.dataset.tone = 'error';
+        return;
+      }
+
+      status.textContent =
+        'Der Versand wird gerade eingerichtet. Schreiben Sie uns solange direkt an office@iconicuplift.com.';
+      status.dataset.tone = 'error';
+    });
+  }
+</script>

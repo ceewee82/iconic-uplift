@@ -244,7 +244,13 @@ export const team = {
     },
   ],
   poweredByLabel: 'POWERED BY',
-  poweredBy: ['RIEGLER & PARTNER', 'MPBM', 'JACK COLEMAN', 'PANOROOM'],
+  // Domains geprüft: alle vier antworten und tragen die passende Firma.
+  poweredBy: [
+    { name: 'RIEGLER & PARTNER', href: 'https://rieglerundpartner.at' },
+    { name: 'MPBM', href: 'https://www.mpbm.at' },
+    { name: 'JACK COLEMAN', href: 'https://www.jack-coleman.com' },
+    { name: 'PANOROOM', href: 'https://www.panoroom.at' },
+  ],
 } as const;
 
 export const finalCta = {

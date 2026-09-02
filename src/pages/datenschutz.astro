@@ -1,0 +1,33 @@
+---
+// Rechtsseite — Inhalt steht laut docs/website-copy-de.md §9 noch aus
+// (Legal-Setup bzw. anwaltliche Prüfung). Die Seite existiert bereits,
+// damit die Links im Footer nicht ins Leere laufen.
+import Page from '../layouts/Page.astro';
+import { legalPages } from '../content/de/pages';
+import { legal, brand } from '../content/de/global';
+
+const page = legalPages.datenschutz;
+---
+
+<Page title={page.seo.title} description={page.seo.description}>
+  <section class="bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-20 md:px-10 md:py-28">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl leading-[1.1] sm:text-5xl" data-reveal>{page.h1}</h1>
+
+        <p class="mt-10 text-base leading-relaxed text-[var(--color-text-soft)]" data-reveal data-reveal-delay="0.08">
+          {page.pending}
+        </p>
+
+        <div class="mt-12 border-t border-[var(--color-line)] pt-8" data-reveal data-reveal-delay="0.16">
+          <p class="endorsement text-[0.6rem]">{brand.endorsement}</p>
+          <p class="mt-4 text-sm text-[var(--color-text-soft)]">
+            Bis dahin erreichen Sie uns unter
+            <a href="mailto:office@iconicuplift.com" class="text-[var(--color-gold-light)] transition-colors hover:text-[var(--color-gold-bright)]">office@iconicuplift.com</a>.
+          </p>
+          <p class="mt-8 text-xs leading-relaxed text-[var(--color-text-dim)]">{legal.disclaimer}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>

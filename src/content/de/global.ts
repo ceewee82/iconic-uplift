@@ -30,9 +30,12 @@ export const nav = {
       { label: 'Instagram', href: '#' },
     ],
   },
+  // `available: false` schaltet die Sprache stumm, solange es keine
+  // Übersetzung gibt — ein Link auf /en/ wäre bis dahin ein toter Link.
+  // Die EN-Runde folgt laut Copy-Dokument §10 nach der DE-Freigabe.
   langs: [
-    { label: 'DE', href: '/', active: true },
-    { label: 'EN', href: '/en/', active: false },
+    { label: 'DE', href: '/', active: true, available: true },
+    { label: 'EN', href: '/en/', active: false, available: false },
   ],
   // Labels für Screenreader / aria
   a11y: {
