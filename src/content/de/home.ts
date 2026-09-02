@@ -239,7 +239,7 @@ export const team = {
     },
     {
       name: 'Christian Wolf',
-      role: 'Marke, Go-to-Market, VR-Visualisierung',
+      role: 'Strategy, Marketing & Go-To Market, VR',
       photo: 'christian-wolf.jpg',
     },
   ],

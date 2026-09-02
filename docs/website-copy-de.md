@@ -114,7 +114,7 @@ Unten: `A RIEGLER & PARTNER COMPANY` · LinkedIn · Instagram
 - Eyebrow: `DIE KÖPFE DAHINTER` — **H2:** Bauträger-DNA. Baustellen-Disziplin. Marken-Handwerk.
 - Herbert Riegler — Dealflow, Investor Relations, Track Record
 - Markus Pein — Technische Planung, Bauleitung vor Ort
-- Christian Wolf — Marke, Go-to-Market, VR-Visualisierung
+- Christian Wolf — Strategy, Marketing & Go-To Market, VR
 - POWERED BY: RIEGLER & PARTNER · MPBM · JACK COLEMAN · PANOROOM
 
 ### 1.12 Final CTA
@@ -290,7 +290,7 @@ Welcher Tier passt zu Ihrem Objekt? → [Deal einreichen] / [Assessment Call buc
 ### 7.2 Personen (je: Portrait, Rolle, 3-Zeilen-Bio — Bios folgen von den Partnern)
 - **Herbert Riegler** — Dealflow, Investor Relations, Track Record. *Bio-Platzhalter: Bauträger seit XX Jahren, Projekte Lend Living, Sundown Living, Villenblick 6, Riegler Downtown …*
 - **Markus Pein** — Technische Planung, Bauleitung vor Ort. *Bio-Platzhalter: MPBM Baumanagement, XX Jahre internationale Bauprojekte …*
-- **Christian Wolf** — Marke, Go-to-Market, VR-Visualisierung. *Bio-Platzhalter: Gründer Jack Coleman & Panoroom …*
+- **Christian Wolf** — Strategy, Marketing & Go-To Market, VR. *Bio-Platzhalter: Gründer Jack Coleman & Panoroom …*
 
 ### 7.3 Powered by
 RIEGLER & PARTNER (Bauträger, AT) · MPBM (Baumanagement) · JACK COLEMAN (Brand & Marketing) · PANOROOM (VR & Visualisierung)
