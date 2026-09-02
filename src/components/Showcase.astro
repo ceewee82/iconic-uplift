@@ -1,0 +1,204 @@
+---
+// Sektion 8 — Showcase / VR. Spec: DEV_SPEC §4 Zeile 8.
+// Golden-Hour-Bühne, Video-Platzhalter mit Play (Inhalt folgt, DEV_SPEC §8),
+// darunter die Track-Record-Zeile.
+import { showcase } from '../content/de/home';
+---
+
+<section id="visualisation" class="showcase border-b border-[var(--color-line)]">
+  <div class="mx-auto max-w-[100rem] px-6 py-28 md:px-10 md:py-36">
+    <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+      {showcase.eyebrow}
+    </p>
+
+    <h2
+      class="mt-7 max-w-3xl text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+      data-reveal
+      data-reveal-delay="0.08"
+    >
+      {showcase.h2}
+    </h2>
+
+    <!-- Video-Bühne -->
+    <div class="stage mt-14 md:mt-20" data-reveal>
+      <button id="vr-open" type="button" class="stage-button">
+        <span class="stage-play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 6.5v11l9-5.5-9-5.5Z" /></svg>
+        </span>
+        <span class="stage-label">{showcase.videoLabel}</span>
+      </button>
+    </div>
+
+    <!-- Track Record -->
+    <div class="mt-16 border-t border-[var(--color-line)] pt-8 md:mt-20" data-reveal>
+      <p class="text-[0.6rem] tracking-[0.24em] text-[var(--color-text-dim)]">
+        {showcase.trackRecordLabel}
+      </p>
+      <ul class="mt-5 flex flex-wrap items-center gap-x-8 gap-y-3">
+        {
+          showcase.projects.map((project) => (
+            <li class="font-[var(--font-display)] text-sm text-[var(--color-text-soft)]">
+              {project}
+            </li>
+          ))
+        }
+        <li>
+          <a
+            href="#"
+            class="inline-flex items-center gap-2 text-xs text-[var(--color-gold-light)] transition-colors hover:text-[var(--color-gold-bright)]"
+          >
+            {showcase.allProjects}
+            <span aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox — Inhalt folgt, sobald die VR-Demo produziert ist -->
+<div id="vr-modal" class="vr-modal" hidden>
+  <div class="vr-backdrop" data-close></div>
+  <div class="vr-panel" role="dialog" aria-modal="true" aria-labelledby="vr-modal-title">
+    <button id="vr-close" type="button" class="vr-close" aria-label="Schließen">✕</button>
+    <p id="vr-modal-title" class="vr-title">{showcase.videoLabel}</p>
+    <p class="vr-pending">{showcase.modalPending}</p>
+  </div>
+</div>
+
+<style>
+  /* Golden-Hour-Bühne: warmer Verlauf, nur hier — laut CLAUDE.md sind
+     Lichtmomente den emotionalen Stellen vorbehalten. */
+  .showcase {
+    background:
+      radial-gradient(120% 80% at 70% 0%, rgba(176, 141, 87, 0.16) 0%, rgba(11, 11, 12, 0) 60%),
+      var(--color-black);
+  }
+
+  .stage {
+    position: relative;
+    border: 1px solid var(--color-line);
+    background:
+      radial-gradient(90% 120% at 50% 100%, rgba(224, 188, 122, 0.18) 0%, rgba(18, 18, 16, 0) 65%),
+      var(--color-surface);
+  }
+
+  .stage-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: inherit;
+  }
+
+  .stage-play {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border: 1px solid var(--color-gold);
+    border-radius: 9999px;
+    color: var(--color-gold-light);
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease;
+  }
+
+  .stage-play svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .stage-button:hover .stage-play,
+  .stage-button:focus-visible .stage-play {
+    background: var(--color-gold);
+    color: var(--color-black);
+  }
+
+  .stage-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    color: var(--color-text-dim);
+  }
+
+  /* ---------- Lightbox ---------- */
+  .vr-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+  }
+
+  .vr-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 11, 12, 0.92);
+    backdrop-filter: blur(6px);
+  }
+
+  .vr-panel {
+    position: relative;
+    width: min(40rem, 100%);
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    padding: 3.5rem 2.5rem;
+    text-align: center;
+  }
+
+  .vr-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: 0;
+    color: var(--color-text-dim);
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .vr-close:hover {
+    color: var(--color-text);
+  }
+
+  .vr-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    color: var(--color-gold);
+  }
+
+  .vr-pending {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-text);
+  }
+</style>
+
+<script>
+  const modal = document.getElementById('vr-modal');
+  const openButton = document.getElementById('vr-open');
+  const closeButton = document.getElementById('vr-close');
+
+  if (modal && openButton && closeButton) {
+    const setOpen = (open: boolean) => {
+      modal.hidden = !open;
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+      (open ? closeButton : openButton).focus();
+    };
+
+    openButton.addEventListener('click', () => setOpen(true));
+    closeButton.addEventListener('click', () => setOpen(false));
+    modal.querySelector('[data-close]')?.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !modal.hidden) setOpen(false);
+    });
+  }
+</script>

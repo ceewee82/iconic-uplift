@@ -1,0 +1,232 @@
+---
+// Sektion 8b — Construction Timelapse. Spec: DEV_SPEC §4 Zeile 8b.
+// Video lädt erst im Viewport (IntersectionObserver, preload="none"),
+// Fortschrittsbalken und Phasenleiste hängen an timeupdate.
+import { timelapse } from '../content/de/home';
+import poster from '../assets/img/hero-after.png';
+---
+
+<section id="timelapse" class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+  <div class="mx-auto max-w-[100rem] px-6 py-28 md:px-10 md:py-36">
+    <div class="md:flex md:items-end md:justify-between md:gap-12">
+      <div>
+        <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+          {timelapse.eyebrow}
+        </p>
+        <h2
+          class="mt-7 max-w-2xl text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+          data-reveal
+          data-reveal-delay="0.08"
+        >
+          {timelapse.h2}
+        </h2>
+      </div>
+
+      <p
+        class="mt-8 max-w-xs text-[0.65rem] leading-[1.9] tracking-[0.16em] text-[var(--color-text-dim)] md:mt-0 md:text-right"
+        data-reveal
+        data-reveal-delay="0.16"
+      >
+        {timelapse.claim}
+      </p>
+    </div>
+
+    <figure class="tl mt-14 md:mt-20" data-reveal>
+      <div class="tl-frame">
+        <video
+          id="tl-video"
+          class="tl-video"
+          poster={poster.src}
+          muted
+          loop
+          playsinline
+          preload="none"
+          aria-label={timelapse.videoAlt}
+        >
+          <source src="/assets/video/timelapse.mp4" type="video/mp4" />
+        </video>
+
+        <span class="tl-label">{timelapse.eyebrow}</span>
+
+        <!-- Fortschritt, gekoppelt an timeupdate -->
+        <div class="tl-progress" role="presentation">
+          <span id="tl-bar" class="tl-bar"></span>
+        </div>
+      </div>
+
+      <!-- Phasenleiste -->
+      <ol class="tl-phases" id="tl-phases">
+        {
+          timelapse.phases.map((phase, i) => (
+            <li class="tl-phase" data-index={String(i)}>
+              <span class="tl-phase-no">{phase.no}</span>
+              <span class="tl-phase-title">{phase.title}</span>
+              <span class="tl-phase-sub">{phase.sub}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .tl-frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+  }
+
+  .tl-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1170 / 786;
+    object-fit: cover;
+  }
+
+  .tl-label {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    color: var(--color-text-soft);
+    background: rgba(11, 11, 12, 0.6);
+    padding: 0.4rem 0.7rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .tl-progress {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: rgba(31, 31, 29, 0.9);
+  }
+
+  .tl-bar {
+    display: block;
+    width: 0%;
+    height: 100%;
+    background: var(--color-gold);
+  }
+
+  .tl-phases {
+    display: grid;
+    gap: 1px;
+    margin: 1px 0 0;
+    padding: 0;
+    background: var(--color-line);
+    list-style: none;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 640px) {
+    .tl-phases {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .tl-phases {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .tl-phase {
+    background: var(--color-surface);
+    padding: 1.25rem 1rem;
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease;
+  }
+
+  .tl-phase-no,
+  .tl-phase-title,
+  .tl-phase-sub {
+    display: block;
+  }
+
+  .tl-phase-no {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    color: var(--color-text-dim);
+    transition: color 0.4s ease;
+  }
+
+  .tl-phase-title {
+    margin-top: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--color-text-soft);
+    transition: color 0.4s ease;
+  }
+
+  .tl-phase-sub {
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    color: var(--color-text-dim);
+  }
+
+  /* Aktive Phase */
+  .tl-phase[data-active='true'] .tl-phase-no,
+  .tl-phase[data-active='true'] .tl-phase-title {
+    color: var(--color-gold-light);
+  }
+
+  .tl-phase[data-active='true'] {
+    background: #161613;
+  }
+</style>
+
+<script>
+  const video = document.getElementById('tl-video') as HTMLVideoElement | null;
+  const bar = document.getElementById('tl-bar');
+  const phases = Array.from(
+    document.querySelectorAll<HTMLElement>('#tl-phases .tl-phase'),
+  );
+
+  if (video && bar && phases.length > 0) {
+    // Lazy-Load: Quelle wird erst geladen, wenn das Video in Sicht kommt
+    // (DEV_SPEC §4 Zeile 8b) — spart auf der Startseite ~19 MB.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          observer.disconnect();
+          video.load();
+          // Autoplay kann abgelehnt werden (Datensparmodus, iOS-Energiesparen).
+          // Dann bleibt das Poster stehen — kein Fehler, nur kein Film.
+          video.play().catch(() => {});
+        });
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(video);
+
+    const syncPhase = () => {
+      const duration = video.duration;
+      if (!Number.isFinite(duration) || duration === 0) return;
+
+      const ratio = video.currentTime / duration;
+      bar.style.width = `${(ratio * 100).toFixed(2)}%`;
+
+      // Phasen gleichmäßig über die Laufzeit verteilt. DEV_SPEC nennt
+      // 0/5/10/15/20 s — das sind fünf Marken für sechs Phasen, weshalb
+      // hier durch die tatsächliche Dauer geteilt wird.
+      const index = Math.min(
+        phases.length - 1,
+        Math.floor(ratio * phases.length),
+      );
+      phases.forEach((phase, i) => {
+        phase.dataset.active = String(i === index);
+      });
+    };
+
+    video.addEventListener('timeupdate', syncPhase);
+    video.addEventListener('loadedmetadata', syncPhase);
+  }
+</script>

@@ -1,0 +1,172 @@
+---
+// Sektion 7 — Tiers. Spec: DEV_SPEC §4 Zeile 7.
+// Desktop: drei Karten, Signature mit Gold-Rahmen.
+// Mobil: waagerechter Snap-Scroll mit Indikator.
+import { tiers } from '../content/de/home';
+---
+
+<section id="tiers" class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+  <div class="mx-auto max-w-[100rem] py-28 md:py-36">
+    <div class="px-6 md:px-10">
+      <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+        {tiers.eyebrow}
+      </p>
+      <h2
+        class="mt-7 max-w-3xl text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+        data-reveal
+        data-reveal-delay="0.08"
+      >
+        {tiers.h2}
+      </h2>
+    </div>
+
+    <ol class="tier-scroller mt-16 md:mt-20" data-reveal-group>
+      {
+        tiers.items.map((tier) => (
+          <li class:list={['tier', tier.featured && 'tier-featured']}>
+            {tier.featured && <span class="tier-badge">EMPFOHLEN</span>}
+            <h3 class="tier-name">{tier.name}</h3>
+            <p class="tier-lead">{tier.lead}</p>
+            <p class="tier-text">{tier.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <!-- Indikator nur mobil, spiegelt die Position im Snap-Scroll -->
+    <div class="tier-dots md:hidden" role="presentation">
+      {tiers.items.map(() => <span class="tier-dot" />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tier-scroller {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    gap: 1px;
+    margin: 0;
+    padding: 0 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    list-style: none;
+  }
+
+  .tier-scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tier {
+    position: relative;
+    scroll-snap-align: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    padding: 2.5rem 2rem 3rem;
+  }
+
+  /* Signature hervorgehoben (DEV_SPEC §4) */
+  .tier-featured {
+    border-color: var(--color-gold);
+  }
+
+  .tier-badge {
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    transform: translateY(-50%);
+    background: var(--color-gold);
+    color: var(--color-black);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .tier-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.14em;
+    color: var(--color-text);
+  }
+
+  .tier-featured .tier-name {
+    color: var(--color-gold-light);
+  }
+
+  .tier-lead {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+
+  .tier-text {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--color-text-soft);
+  }
+
+  .tier-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+  }
+
+  .tier-dot {
+    width: 1.5rem;
+    height: 1px;
+    background: var(--color-line);
+    transition: background-color 0.3s ease;
+  }
+
+  .tier-dot[data-active='true'] {
+    background: var(--color-gold);
+  }
+
+  @media (min-width: 768px) {
+    .tier-scroller {
+      grid-auto-flow: initial;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      padding: 0 2.5rem;
+      overflow-x: visible;
+    }
+
+    .tier {
+      padding: 3rem 2.5rem 3.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Indikator an die Snap-Position koppeln (nur mobil relevant, auf dem
+  // Desktop ist der Scroller nicht scrollbar und die Punkte sind versteckt).
+  const scroller = document.querySelector<HTMLElement>('.tier-scroller');
+  const dots = Array.from(document.querySelectorAll<HTMLElement>('.tier-dot'));
+
+  if (scroller && dots.length > 0) {
+    const sync = () => {
+      const cards = Array.from(scroller.children) as HTMLElement[];
+      const mid = scroller.scrollLeft + scroller.clientWidth / 2;
+      let active = 0;
+      let best = Infinity;
+      cards.forEach((card, i) => {
+        const center = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(center - mid);
+        if (distance < best) {
+          best = distance;
+          active = i;
+        }
+      });
+      dots.forEach((dot, i) => {
+        dot.dataset.active = String(i === active);
+      });
+    };
+
+    sync();
+    scroller.addEventListener('scroll', sync, { passive: true });
+  }
+</script>

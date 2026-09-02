@@ -100,6 +100,59 @@ export const dualTrack = [
   },
 ] as const;
 
+export const tiers = {
+  eyebrow: 'DAS ANGEBOT',
+  h2: 'Drei Stufen. Ein Ergebnisstandard.',
+  items: [
+    {
+      name: 'PRIME',
+      lead: 'ROI-fokussiertes Upgrade.',
+      text: 'Market-ready Finish, der schnellste Weg zur Verkäuflichkeit — für wiederholbare Deals in Emirates Living und Jumeirah Islands.',
+      featured: false,
+    },
+    {
+      name: 'SIGNATURE',
+      lead: 'Bespoke Premium.',
+      text: 'Höhere Material- und Detailtiefe für Standout-Exits — die Stufe, auf der Lake- und Corner-Lagen ihr Maximum erreichen.',
+      featured: true,
+    },
+    {
+      name: 'ICONIC',
+      lead: 'Statement-Transformation auf Showcase-Level.',
+      text: 'Für die Palm Jumeirah und Flagship-Projekte mit maximalem Premium-Multiple.',
+      featured: false,
+    },
+  ],
+} as const;
+
+export const showcase = {
+  eyebrow: 'SEHEN, BEVOR GEBAUT WIRD',
+  h2: 'Ihre Villa. Fertig gedacht, bevor der erste Handgriff passiert.',
+  videoLabel: 'VR-WALKTHROUGH · MUSTERPROJEKT (KONZEPT)',
+  trackRecordLabel: 'TRACK RECORD · RIEGLER & PARTNER',
+  projects: ['Lend Living', 'Sundown Living', 'Villenblick 6', 'Riegler Downtown'],
+  allProjects: 'alle Projekte',
+  // TODO: VR-Demo-Inhalt fehlt noch (DEV_SPEC §8)
+  modalPending: 'Der VR-Walkthrough wird derzeit produziert.',
+} as const;
+
+export const timelapse = {
+  eyebrow: 'VOM BESTAND ZUM STATEMENT',
+  h2: '25 Sekunden. Ein kompletter Umbau.',
+  claim:
+    'RÜCKBAU AUF DEN KERN — NICHT ABRISS. DIE SUBSTANZ BLEIBT, DER WERT ENTSTEHT NEU.',
+  phases: [
+    { no: '01', title: 'Bestand', sub: 'Unterschätzte Substanz' },
+    { no: '02', title: 'Rückbau', sub: 'Der Kern bleibt stehen' },
+    { no: '03', title: 'Rohbau', sub: 'Neue Struktur, alter Kern' },
+    { no: '04', title: 'Fassade & Glas', sub: 'Glasfronten & Finish' },
+    { no: '05', title: 'Außenanlagen', sub: 'Garten, Pool, Terrasse' },
+    { no: '06', title: 'Golden Hour', sub: 'Sell-ready übergeben' },
+  ],
+  videoAlt:
+    'Zeitraffer einer Villensanierung in Dubai: vom Bestand über Rückbau, Rohbau und Fassade bis zur fertigen Villa in der Dämmerung.',
+} as const;
+
 export const trustBar = [
   'Scope Lock statt Blackbox',
   'Reporting alle 2 Wochen',
