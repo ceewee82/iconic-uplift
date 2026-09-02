@@ -1,0 +1,55 @@
+---
+// Sektion 4 — Problem. Spec: DEV_SPEC §4 Zeile 4.
+// Zwei Spalten 42/58, vier Karten mit gestaffeltem Reveal.
+import { problem } from '../content/de/home';
+---
+
+<section id="problem" class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+  <div class="mx-auto max-w-[100rem] px-6 py-28 md:px-10 md:py-36">
+    <div class="grid gap-14 lg:grid-cols-[42fr_58fr] lg:gap-20">
+      <!-- Linke Spalte: Eyebrow + Headline -->
+      <div>
+        <p
+          class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]"
+          data-reveal
+        >
+          {problem.eyebrow}
+        </p>
+
+        <h2 class="mt-7 text-3xl leading-[1.15] sm:text-4xl md:text-5xl" data-reveal data-reveal-delay="0.08">
+          {problem.h2}
+          <span class="block text-[var(--color-text-dim)]">{problem.h2Emphasis}</span>
+        </h2>
+      </div>
+
+      <!-- Rechte Spalte: Fließtext + Karten -->
+      <div>
+        <p
+          class="max-w-2xl text-base leading-relaxed text-[var(--color-text-soft)] md:text-lg"
+          data-reveal
+          data-reveal-delay="0.16"
+        >
+          {problem.body}
+        </p>
+
+        <ul class="mt-14 grid gap-px bg-[var(--color-line)] sm:grid-cols-2" data-reveal-group>
+          {
+            problem.cards.map((card, i) => (
+              <li class="group bg-[var(--color-surface)] p-8 transition-colors duration-300 hover:bg-[#161613] md:p-10">
+                <span class="font-[var(--font-display)] text-[0.7rem] text-[var(--color-text-dim)] transition-colors duration-300 group-hover:text-[var(--color-gold)]">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3 class="mt-5 font-[var(--font-display)] text-xl md:text-2xl">
+                  {card.title}
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-soft)]">
+                  {card.text}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

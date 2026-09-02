@@ -23,6 +23,34 @@ export const hero = {
     'Vergleichsregler: Bestand und sanierter Zustand gegenüberstellen',
 } as const;
 
+export const problem = {
+  eyebrow: 'DAS PROBLEM',
+  // Im Copy-Dokument ist der zweite Satz kursiv ausgezeichnet — hier als
+  // eigenes Feld, damit die Betonung gestaltet werden kann ohne den Text
+  // anzufassen.
+  h2: 'Renovierung ist eine Blackbox.',
+  h2Emphasis: 'Wir haben sie geöffnet.',
+  body: 'Dubais reife Villen-Communities sind voller unterschätzter Substanz. Doch wer saniert, kämpft mit explodierenden Budgets, wandernden Zeitplänen und Qualität nach Tageslaune. Genau dafür haben wir ein System gebaut.',
+  cards: [
+    {
+      title: 'Scope Creep',
+      text: 'Unkontrollierte Änderungen sprengen Budget und Zeitplan — der häufigste Wertvernichter.',
+    },
+    {
+      title: 'Timeline-Drift',
+      text: 'Jede Woche Verzug frisst Rendite und verschiebt das Exit-Fenster.',
+    },
+    {
+      title: 'Qualitätsstreuung',
+      text: 'Die Finish-Qualität entscheidet über den Preis — und schwankt im Markt extrem.',
+    },
+    {
+      title: 'Exit-Risiko',
+      text: 'Gute Bauarbeit ohne das richtige Käuferprofil bleibt unter Wert.',
+    },
+  ],
+} as const;
+
 export const trustBar = [
   'Scope Lock statt Blackbox',
   'Reporting alle 2 Wochen',

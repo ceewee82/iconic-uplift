@@ -67,6 +67,14 @@
     outline-offset: 3px;
   }
 
+  /* Reveal-Ausgangszustand. Greift bewusst erst, wenn motion.ts gelaufen
+     ist und data-motion="ready" gesetzt hat — ohne JavaScript bleibt der
+     Inhalt dadurch sichtbar statt unsichtbar zu verharren. */
+  :root[data-motion='ready'] [data-reveal],
+  :root[data-motion='ready'] [data-reveal-group] > * {
+    opacity: 0;
+  }
+
   /* CLAUDE.md Regel 4: alles hinter prefers-reduced-motion absichern.
      Video bleibt, nur Bewegungseffekte fallen weg. */
   @media (prefers-reduced-motion: reduce) {
