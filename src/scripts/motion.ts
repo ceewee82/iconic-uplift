@@ -5,6 +5,9 @@
 //   data-reveal          → Element fährt beim Eintritt ein
 //   data-reveal-group    → Kinder fahren nacheinander ein (Stagger)
 //   data-reveal-delay    → zusätzliche Verzögerung in Sekunden
+//   data-draw            → Linie zeichnet sich am Scroll entlang
+//                          (Desktop scaleX, Mobil scaleY)
+//   data-draw-scope      → Element, dessen Scrollfortschritt die Linie steuert
 //
 // Ohne JavaScript bleibt alles sichtbar: Versteckt wird erst, wenn dieses
 // Modul das Attribut data-motion="ready" gesetzt hat (siehe global.css).
@@ -34,6 +37,54 @@ function revealAllInstantly() {
       el.style.opacity = '1';
       el.style.transform = 'none';
     });
+  // Linien vollständig gezeichnet statt animiert
+  document.querySelectorAll<HTMLElement>('[data-draw]').forEach((el) => {
+    el.style.transform = 'none';
+  });
+}
+
+/**
+ * Verbindungslinien, die sich am Scrollfortschritt entlang zeichnen
+ * (DEV_SPEC §4, Sektion PrimeRefine). Waagerecht auf dem Desktop,
+ * senkrecht auf Mobilgeräten — gsap.matchMedia räumt beim Wechsel
+ * der Breakpoints selbst auf.
+ */
+function initDraw() {
+  const mm = gsap.matchMedia();
+
+  document.querySelectorAll<HTMLElement>('[data-draw]').forEach((line) => {
+    const scope =
+      (line.closest('[data-draw-scope]') as HTMLElement | null) ??
+      line.parentElement;
+    if (!scope) return;
+
+    mm.add(
+      {
+        isDesktop: '(min-width: 768px)',
+        isMobile: '(max-width: 767px)',
+      },
+      (context) => {
+        const isDesktop = Boolean(context.conditions?.isDesktop);
+        const property = isDesktop ? 'scaleX' : 'scaleY';
+
+        gsap.set(line, {
+          [property]: 0,
+          transformOrigin: isDesktop ? 'left center' : 'center top',
+        });
+
+        gsap.to(line, {
+          [property]: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: scope,
+            start: 'top 70%',
+            end: 'bottom 75%',
+            scrub: 0.6, // folgt dem Scrollen mit leichter Verzögerung
+          },
+        });
+      },
+    );
+  });
 }
 
 function initReveals() {
@@ -105,6 +156,7 @@ if (prefersReducedMotion) {
   document.documentElement.dataset.motion = 'ready';
   try {
     initReveals();
+    initDraw();
     initSmoothScroll();
   } catch (error) {
     // Sicherheitsnetz: Scheitert die Animation, darf der Inhalt nicht

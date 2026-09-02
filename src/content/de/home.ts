@@ -51,6 +51,38 @@ export const problem = {
   ],
 } as const;
 
+export const primeRefine = {
+  eyebrow: 'DIE METHODE',
+  h2: 'PrimeRefine — fünf Schritte, ein System.',
+  steps: [
+    {
+      title: 'SCREEN',
+      text: 'Deal-Scoring, Risiko-Scan und Budget-Band — Entscheidung in 48 Stunden.',
+    },
+    {
+      title: 'REFINE',
+      text: 'Konzeptvarianten, Tier-Wahl und Scope Lock — der Umfang steht, bevor gebaut wird.',
+    },
+    {
+      title: 'EXECUTE',
+      text: 'Bauleitung vor Ort, Milestones und QC — keine Änderung ohne Freigabe.',
+    },
+    {
+      title: 'VERIFY',
+      text: 'Abnahmen, Punch List und As-built-Dokumentation — Qualität ist ein Prozess.',
+    },
+    {
+      title: 'SELL-READY',
+      text: 'VR, Renders, Video und Broker-Pack — das Asset ist ab Tag eins vermarktbar.',
+    },
+  ],
+  footer: [
+    'Reporting-Kadenz: alle 2 Wochen in der Bauphase',
+    'Milestone-Abnahmen',
+    'gemeinsamer Datenraum',
+  ],
+} as const;
+
 export const trustBar = [
   'Scope Lock statt Blackbox',
   'Reporting alle 2 Wochen',
