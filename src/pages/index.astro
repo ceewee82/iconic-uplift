@@ -1,49 +1,40 @@
 ---
 import Base from '../layouts/Base.astro';
-
-// Platzhalter-Seite: bestätigt, dass Tokens, Fonts und Build greifen.
-// Wird durch die 13 Home-Sektionen aus DEV_SPEC §4 ersetzt.
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import { seo, trustBar } from '../content/de/home';
+import { brand } from '../content/de/global';
 ---
 
-<Base
-  title="IconicUplift — Bestandsvillen-Refurbishment in Dubai"
-  description="IconicUplift saniert Bestandsvillen in Dubai. A Riegler & Partner Company."
->
-  <main class="mx-auto flex min-h-dvh max-w-5xl flex-col justify-center px-6 py-24">
-    <p class="endorsement text-[0.7rem]">A Riegler &amp; Partner Company</p>
+<Base title={seo.title} description={seo.description}>
+  <Nav />
 
-    <h1 class="mt-8 text-5xl leading-[1.05] md:text-7xl">
-      Rohbau steht.
-    </h1>
+  <main>
+    <!-- 2 · Hero Before/After -->
+    <Hero />
 
-    <p class="mt-6 max-w-xl text-lg text-[var(--color-text-soft)]">
-      Diese Seite ist ein Platzhalter. Sie belegt, dass Design-Tokens, die drei
-      Schriften und der Build funktionieren. Ab hier entstehen die Sektionen
-      aus <code class="text-[var(--color-gold-light)]">docs/DEV_SPEC.md</code> §4.
-    </p>
+    <!-- 3 · Trust Bar (statisch, DEV_SPEC §4 Zeile 3) -->
+    <section class="border-y border-[var(--color-line)] bg-[var(--color-black)]">
+      <div
+        class="mx-auto flex max-w-[100rem] flex-wrap items-center justify-center gap-x-10 gap-y-4 px-6 py-7 md:px-10"
+      >
+        <span class="endorsement text-[0.65rem]">{brand.endorsement}</span>
+        {
+          trustBar.map((item) => (
+            <span class="flex items-center gap-10 text-xs text-[var(--color-text-soft)]">
+              <span class="hidden h-3 w-px bg-[var(--color-line)] md:block" aria-hidden="true" />
+              {item}
+            </span>
+          ))
+        }
+      </div>
+    </section>
 
-    <!-- Farbkontrolle: die Tokens aus CLAUDE.md, sichtbar gemacht -->
-    <ul class="mt-14 flex flex-wrap gap-3" aria-label="Design-Tokens">
-      {
-        [
-          ['surface', 'var(--color-surface)'],
-          ['line', 'var(--color-line)'],
-          ['gold', 'var(--color-gold)'],
-          ['gold-light', 'var(--color-gold-light)'],
-          ['gold-bright', 'var(--color-gold-bright)'],
-          ['text', 'var(--color-text)'],
-        ].map(([name, value]) => (
-          <li class="flex items-center gap-2 border border-[var(--color-line)] px-3 py-2">
-            <span class="size-4" style={`background:${value}`} aria-hidden="true" />
-            <span class="text-xs text-[var(--color-text-dim)]">{name}</span>
-          </li>
-        ))
-      }
-    </ul>
-
-    <p class="mt-14 font-[var(--font-display)] text-sm text-[var(--color-text-dim)]">
-      Space Grotesk · <span class="font-[var(--font-body)]">Archivo</span> ·
-      <span class="endorsement">Marcellus</span>
-    </p>
+    <!-- Sektionen 4–13 folgen (DEV_SPEC §4) -->
+    <section class="mx-auto max-w-[100rem] px-6 py-32 md:px-10">
+      <p class="text-xs tracking-[0.22em] text-[var(--color-text-dim)]">
+        NÄCHSTE SEKTION: 4 · PROBLEM
+      </p>
+    </section>
   </main>
 </Base>

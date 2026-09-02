@@ -1,0 +1,309 @@
+---
+// Sektion 2 — Hero Before/After. Spec: DEV_SPEC §4 Zeile 2.
+// Desktop: horizontaler Wipe, Start bei 50 %. Mobile: vertikaler Split.
+// Auto-Demo beim Load einmal sanft 45 → 55 % (hinter prefers-reduced-motion).
+import { Picture } from 'astro:assets';
+import { hero } from '../content/de/home';
+import { cta } from '../content/de/global';
+import heroBefore from '../assets/img/hero-before.png';
+import heroAfter from '../assets/img/hero-after.png';
+
+// Quellmaterial ist 1024 px breit — grössere Breiten wären hochskaliert.
+const widths = [640, 1024];
+---
+
+<section class="relative h-[100svh] min-h-[38rem] w-full overflow-hidden bg-[var(--color-black)]">
+  <div
+    id="hero-compare"
+    class="absolute inset-0 select-none"
+    data-orientation="horizontal"
+    style="--split: 50"
+  >
+    <!-- Bestand (liegt unten, immer vollflächig) -->
+    <Picture
+      src={heroBefore}
+      formats={['avif', 'webp']}
+      widths={widths}
+      sizes="100vw"
+      alt={hero.altBefore}
+      class="absolute inset-0 size-full object-cover"
+      loading="eager"
+      fetchpriority="high"
+    />
+
+    <!-- Sell-ready (darüber, per clip-path beschnitten) -->
+    <div id="hero-after-clip" class="absolute inset-0">
+      <Picture
+        src={heroAfter}
+        formats={['avif', 'webp']}
+        widths={widths}
+        sizes="100vw"
+        alt={hero.altAfter}
+        class="absolute inset-0 size-full object-cover"
+        loading="eager"
+      />
+    </div>
+
+    <!-- Abdunklung für Textkontrast (CLAUDE.md Regel 6) -->
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--color-black)_70%,transparent)] via-[color-mix(in_srgb,var(--color-black)_35%,transparent)] to-[color-mix(in_srgb,var(--color-black)_80%,transparent)]"
+      aria-hidden="true"
+    >
+    </div>
+
+    <!-- Trennlinie + Griff -->
+    <div id="hero-divider" class="pointer-events-none absolute" aria-hidden="true">
+      <span class="hero-line"></span>
+      <span class="hero-handle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25">
+          <path class="hero-arrows-h" d="M9.5 8.5 6 12l3.5 3.5M14.5 8.5 18 12l-3.5 3.5" />
+          <path class="hero-arrows-v" d="M8.5 9.5 12 6l3.5 3.5M8.5 14.5 12 18l3.5-3.5" />
+        </svg>
+      </span>
+    </div>
+
+    <!-- Bedienelement: Tastatur + Pointer -->
+    <div
+      id="hero-slider"
+      class="absolute inset-0 cursor-ew-resize"
+      role="slider"
+      tabindex="0"
+      aria-label={hero.a11ySlider}
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="50"
+      aria-orientation="horizontal"
+    >
+    </div>
+  </div>
+
+  <!-- Labels -->
+  <p
+    class="pointer-events-none absolute top-28 left-6 text-[0.6rem] tracking-[0.22em] text-[var(--color-text-soft)] md:left-10 md:text-[0.65rem]"
+  >
+    {hero.labelBefore}
+  </p>
+  <p
+    class="pointer-events-none absolute top-28 right-6 text-right text-[0.6rem] tracking-[0.22em] text-[var(--color-gold-light)] md:right-10 md:text-[0.65rem]"
+  >
+    {hero.labelAfter}
+  </p>
+
+  <!-- Headline-Block -->
+  <div
+    class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-24 text-center md:pb-28"
+  >
+    <h1 class="max-w-3xl text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
+      {hero.h1}
+    </h1>
+    <p class="mt-6 max-w-xl text-sm text-[var(--color-text-soft)] md:text-base">
+      {hero.sub}
+    </p>
+    <div class="pointer-events-auto mt-9 flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="#investor-pack"
+        class="border border-[var(--color-gold)] bg-[var(--color-gold)] px-7 py-3.5 text-xs tracking-[0.12em] text-[var(--color-black)] uppercase transition-colors duration-300 hover:bg-[var(--color-gold-light)]"
+      >
+        {cta.primary}
+      </a>
+      <a
+        href="#deal"
+        class="border border-[var(--color-line)] px-7 py-3.5 text-xs tracking-[0.12em] text-[var(--color-text-soft)] uppercase transition-colors duration-300 hover:border-[var(--color-gold)] hover:text-[var(--color-text)]"
+      >
+        {cta.secondary}
+      </a>
+    </div>
+  </div>
+
+  <p
+    class="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 text-[0.6rem] tracking-[0.3em] text-[var(--color-text-dim)]"
+  >
+    {hero.scroll}
+  </p>
+</section>
+
+<style>
+  /* Trennlinie und Griff folgen --split; Ausrichtung schaltet über
+     data-orientation am Container um (Desktop horizontal, Mobile vertikal). */
+  #hero-divider {
+    color: var(--color-gold-light);
+  }
+
+  .hero-line {
+    position: absolute;
+    background: var(--color-gold);
+  }
+
+  .hero-handle {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin: -1.5rem 0 0 -1.5rem;
+    border: 1px solid var(--color-gold);
+    border-radius: 9999px; /* Kreis — einzige erlaubte Rundung (CLAUDE.md) */
+    background: rgba(11, 11, 12, 0.55); /* --black auf 55 % */
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-handle svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  /* Horizontal: Linie senkrecht, Griff auf halber Höhe */
+  [data-orientation='horizontal'] #hero-after-clip {
+    clip-path: inset(0 0 0 calc(var(--split) * 1%));
+  }
+  [data-orientation='horizontal'] #hero-divider {
+    inset: 0 auto 0 calc(var(--split) * 1%);
+  }
+  [data-orientation='horizontal'] .hero-line {
+    inset: 0 auto 0 0;
+    width: 1px;
+  }
+  [data-orientation='horizontal'] .hero-handle {
+    top: 50%;
+    left: 0;
+  }
+  [data-orientation='horizontal'] .hero-arrows-v {
+    display: none;
+  }
+
+  /* Vertikal: Linie waagerecht, Griff auf halber Breite */
+  [data-orientation='vertical'] #hero-after-clip {
+    clip-path: inset(calc(var(--split) * 1%) 0 0 0);
+  }
+  [data-orientation='vertical'] #hero-divider {
+    inset: calc(var(--split) * 1%) 0 auto 0;
+  }
+  [data-orientation='vertical'] .hero-line {
+    inset: 0 0 auto 0;
+    height: 1px;
+  }
+  [data-orientation='vertical'] .hero-handle {
+    top: 0;
+    left: 50%;
+  }
+  [data-orientation='vertical'] .hero-arrows-h {
+    display: none;
+  }
+  [data-orientation='vertical'] #hero-slider {
+    cursor: ns-resize;
+  }
+</style>
+
+<script>
+  const compare = document.getElementById('hero-compare')!;
+  const slider = document.getElementById('hero-slider')!;
+
+  const clamp = (n: number) => Math.min(100, Math.max(0, n));
+
+  let split = 50;
+  const setSplit = (next: number) => {
+    split = clamp(next);
+    compare.style.setProperty('--split', String(split));
+    slider.setAttribute('aria-valuenow', String(Math.round(split)));
+  };
+
+  // --- Ausrichtung: Mobile (< 768 px) vertikal, darüber horizontal ---
+  const mq = window.matchMedia('(min-width: 768px)');
+  const syncOrientation = () => {
+    const horizontal = mq.matches;
+    compare.dataset.orientation = horizontal ? 'horizontal' : 'vertical';
+    slider.setAttribute('aria-orientation', horizontal ? 'horizontal' : 'vertical');
+  };
+  syncOrientation();
+  mq.addEventListener('change', syncOrientation);
+
+  // --- Pointer-Drag ---
+  const positionFromEvent = (event: PointerEvent) => {
+    const rect = compare.getBoundingClientRect();
+    return mq.matches
+      ? ((event.clientX - rect.left) / rect.width) * 100
+      : ((event.clientY - rect.top) / rect.height) * 100;
+  };
+
+  let dragging = false;
+
+  slider.addEventListener('pointerdown', (event) => {
+    dragging = true;
+    stopDemo();
+    slider.setPointerCapture(event.pointerId);
+    setSplit(positionFromEvent(event));
+  });
+
+  slider.addEventListener('pointermove', (event) => {
+    if (!dragging) return;
+    event.preventDefault();
+    setSplit(positionFromEvent(event));
+  });
+
+  const endDrag = (event: PointerEvent) => {
+    if (!dragging) return;
+    dragging = false;
+    slider.releasePointerCapture(event.pointerId);
+  };
+  slider.addEventListener('pointerup', endDrag);
+  slider.addEventListener('pointercancel', endDrag);
+
+  // --- Tastatur ---
+  slider.addEventListener('keydown', (event) => {
+    const step = event.shiftKey ? 10 : 2;
+    const keys: Record<string, number> = {
+      ArrowLeft: -step,
+      ArrowDown: -step,
+      ArrowRight: step,
+      ArrowUp: step,
+    };
+    if (event.key in keys) {
+      event.preventDefault();
+      stopDemo();
+      setSplit(split + keys[event.key]);
+    } else if (event.key === 'Home') {
+      event.preventDefault();
+      stopDemo();
+      setSplit(0);
+    } else if (event.key === 'End') {
+      event.preventDefault();
+      stopDemo();
+      setSplit(100);
+    }
+  });
+
+  // --- Auto-Demo: einmal sanft 45 → 55 → 50, damit die Geste erkennbar wird ---
+  let demoFrame = 0;
+  const stopDemo = () => {
+    if (demoFrame) cancelAnimationFrame(demoFrame);
+    demoFrame = 0;
+  };
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const runDemo = () => {
+    if (reduceMotion.matches) return;
+    const DURATION = 2200;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / DURATION);
+      // ein voller Sinus-Durchlauf: 50 → 45 → 55 → 50
+      const eased = Math.sin(t * Math.PI * 2);
+      setSplit(50 - eased * 5);
+      if (t < 1) {
+        demoFrame = requestAnimationFrame(tick);
+      } else {
+        setSplit(50);
+        demoFrame = 0;
+      }
+    };
+    demoFrame = requestAnimationFrame(tick);
+  };
+
+  // Erst starten, wenn beide Bilder stehen — sonst läuft die Demo ins Leere.
+  if (document.readyState === 'complete') {
+    setTimeout(runDemo, 600);
+  } else {
+    window.addEventListener('load', () => setTimeout(runDemo, 600), { once: true });
+  }
+</script>

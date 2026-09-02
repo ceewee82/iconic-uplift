@@ -1,0 +1,239 @@
+---
+// Sektion 1 — Navigation. Spec: DEV_SPEC §4 Zeile 1.
+// Transparent über dem Hero, ab 80 px Scroll dunkler Grund + Blur + Hairline.
+import { brand, nav, cta } from '../content/de/global';
+---
+
+<header id="site-nav" data-solid="false">
+  <nav
+    class="mx-auto flex h-20 max-w-[100rem] items-center justify-between gap-8 px-6 md:px-10"
+    aria-label={nav.a11y.main}
+  >
+    <a
+      href="/"
+      class="font-[var(--font-display)] text-[0.95rem] tracking-[0.22em] text-[var(--color-text)] transition-colors hover:text-[var(--color-gold-light)]"
+    >
+      {brand.wordmark}
+    </a>
+
+    <ul class="hidden items-center gap-9 md:flex">
+      {
+        nav.primary.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-sm text-[var(--color-text-soft)] transition-colors hover:text-[var(--color-text)]"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-5">
+      <div class="hidden items-center gap-2 text-xs sm:flex" aria-label={nav.a11y.lang}>
+        {
+          nav.langs.map((lang, i) => (
+            <>
+              {i > 0 && <span class="text-[var(--color-text-dim)]">·</span>}
+              <a
+                href={lang.href}
+                aria-current={lang.active ? 'true' : undefined}
+                class:list={[
+                  'transition-colors',
+                  lang.active
+                    ? 'text-[var(--color-text)]'
+                    : 'text-[var(--color-text-dim)] hover:text-[var(--color-text-soft)]',
+                ]}
+              >
+                {lang.label}
+              </a>
+            </>
+          ))
+        }
+      </div>
+
+      <a
+        href="#investor-pack"
+        class="hidden border border-[var(--color-gold)] px-5 py-2.5 text-xs tracking-[0.12em] text-[var(--color-gold-light)] uppercase transition-colors duration-300 hover:bg-[var(--color-gold)] hover:text-[var(--color-black)] sm:inline-block"
+      >
+        {cta.primaryShort}
+      </a>
+
+      <button
+        id="nav-toggle"
+        type="button"
+        class="flex size-10 items-center justify-center"
+        aria-expanded="false"
+        aria-controls="nav-overlay"
+        aria-label={nav.a11y.open}
+      >
+        <span class="relative block h-3 w-6" aria-hidden="true">
+          <span
+            data-bar="top"
+            class="absolute inset-x-0 top-0 h-px bg-[var(--color-text)] transition-transform duration-300"
+          ></span>
+          <span
+            data-bar="bottom"
+            class="absolute inset-x-0 bottom-0 h-px bg-[var(--color-text)] transition-transform duration-300"
+          ></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Fullscreen-Overlay -->
+<div
+  id="nav-overlay"
+  class="invisible fixed inset-0 z-40 bg-[var(--color-black)] opacity-0 transition-[opacity,visibility] duration-400"
+  hidden
+>
+  <div class="mx-auto flex h-full max-w-[100rem] flex-col justify-between px-6 pt-32 pb-10 md:px-10">
+    <div class="grid gap-14 sm:grid-cols-2">
+      <div>
+        <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-text-dim)]">SEITEN</p>
+        <ul class="mt-6 space-y-4">
+          {
+            nav.overlay.seiten.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="font-[var(--font-display)] text-3xl text-[var(--color-text)] transition-colors hover:text-[var(--color-gold-light)] md:text-4xl"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-text-dim)]">MEHR</p>
+        <ul class="mt-6 space-y-4">
+          {
+            nav.overlay.mehr.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="font-[var(--font-display)] text-3xl text-[var(--color-text)] transition-colors hover:text-[var(--color-gold-light)] md:text-4xl"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-6 border-t border-[var(--color-line)] pt-8">
+      <p class="endorsement text-[0.65rem]">{brand.endorsement}</p>
+      <ul class="flex gap-6">
+        {
+          nav.overlay.social.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-xs text-[var(--color-text-dim)] transition-colors hover:text-[var(--color-text-soft)]"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Sektion 1 · Nav — Grundzustand transparent über dem Hero,
+     ab 80 px Scroll dunkler Grund + Blur + Hairline (DEV_SPEC §4). */
+  #site-nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 300ms ease,
+      backdrop-filter 300ms ease,
+      border-color 300ms ease;
+  }
+
+  /* 90 % von --black (#0B0B0C) laut Spec, bewusst als literales rgba:
+     der Wert steht so wörtlich in DEV_SPEC §4 und bleibt ohne Umweg über
+     eine Variable lesbar. */
+  #site-nav[data-solid='true'] {
+    background-color: rgba(11, 11, 12, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom-color: var(--color-line);
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-nav')!;
+  const toggle = document.getElementById('nav-toggle')!;
+  const overlay = document.getElementById('nav-overlay')!;
+  const barTop = toggle.querySelector<HTMLElement>('[data-bar="top"]')!;
+  const barBottom = toggle.querySelector<HTMLElement>('[data-bar="bottom"]')!;
+  const labelOpen = toggle.getAttribute('aria-label')!;
+  const labelClose = 'Menü schließen';
+
+  // --- Scroll-Zustand: ab 80 px dunkler Grund + Blur + Hairline (DEV_SPEC §4) ---
+  // Umschaltung über data-solid statt classList: Tailwind scannt nur Markup,
+  // nicht diesen Script-Block — dort gebaute Utility-Klassen existieren als
+  // CSS-Regel nicht. Das Styling steht deshalb im <style> unten.
+  const SCROLL_THRESHOLD = 80;
+
+  const syncHeader = () => {
+    header.dataset.solid = String(window.scrollY > SCROLL_THRESHOLD);
+  };
+  syncHeader();
+  window.addEventListener('scroll', syncHeader, { passive: true });
+
+  // --- Overlay ---
+  let open = false;
+
+  const setOpen = (next: boolean) => {
+    open = next;
+    toggle.setAttribute('aria-expanded', String(next));
+    toggle.setAttribute('aria-label', next ? labelClose : labelOpen);
+    document.documentElement.style.overflow = next ? 'hidden' : '';
+
+    if (next) {
+      overlay.hidden = false;
+      // Erst im nächsten Frame animieren, sonst greift die Transition nicht.
+      requestAnimationFrame(() => {
+        overlay.classList.remove('invisible', 'opacity-0');
+      });
+      barTop.style.transform = 'translateY(5.5px) rotate(45deg)';
+      barBottom.style.transform = 'translateY(-5.5px) rotate(-45deg)';
+      overlay.querySelector<HTMLAnchorElement>('a')?.focus();
+    } else {
+      overlay.classList.add('invisible', 'opacity-0');
+      barTop.style.transform = '';
+      barBottom.style.transform = '';
+      toggle.focus();
+      const hide = () => {
+        if (!open) overlay.hidden = true;
+      };
+      overlay.addEventListener('transitionend', hide, { once: true });
+      // Fallback, falls die Transition (reduced motion) nicht feuert
+      setTimeout(hide, 450);
+    }
+  };
+
+  toggle.addEventListener('click', () => setOpen(!open));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && open) setOpen(false);
+  });
+
+  // Overlay schließen, sobald ein Link gewählt wurde
+  overlay.addEventListener('click', (event) => {
+    if ((event.target as HTMLElement).closest('a')) setOpen(false);
+  });
+</script>
