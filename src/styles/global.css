@@ -1,0 +1,82 @@
+@import 'tailwindcss';
+
+/* Self-gehostete Fonts (woff2 aus node_modules, kein Google-CDN-Request) */
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/archivo';
+@import '@fontsource/marcellus';
+
+/* ------------------------------------------------------------------
+   Design-System aus CLAUDE.md — "Obsidian × Golden Hour".
+   Diese Werte sind verbindlich und werden nicht überschrieben.
+   Als @theme registriert, damit Tailwind daraus Utilities baut
+   (bg-black, text-gold, border-line …).
+   ------------------------------------------------------------------ */
+@theme {
+  --color-black: #0b0b0c;
+  --color-surface: #121210;
+  --color-line: #1f1f1d;
+  --color-gold: #b08d57;
+  --color-gold-light: #c6a15b;
+  --color-gold-bright: #e0bc7a;
+  --color-text: #f5f4f0;
+  --color-text-soft: #9a9a94;
+  --color-text-dim: #6b6b66;
+
+  --font-display: 'Space Grotesk Variable', system-ui, sans-serif;
+  --font-body: 'Archivo Variable', system-ui, sans-serif;
+  --font-endorsement: 'Marcellus', Georgia, serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-black);
+    color: var(--color-text-soft);
+    font-family: var(--font-body);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-text);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  /* Endorsement-Zeilen: immer Marcellus, immer Versalien.
+     Schreibweise laut CLAUDE.md exakt: A RIEGLER & PARTNER COMPANY */
+  .endorsement {
+    font-family: var(--font-endorsement);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-text-dim);
+  }
+
+  /* Sichtbarer Fokus auf Dunkelgrund (CLAUDE.md Regel 6) */
+  :focus-visible {
+    outline: 2px solid var(--color-gold-light);
+    outline-offset: 3px;
+  }
+
+  /* CLAUDE.md Regel 4: alles hinter prefers-reduced-motion absichern.
+     Video bleibt, nur Bewegungseffekte fallen weg. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

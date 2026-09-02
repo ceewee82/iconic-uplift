@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Sprache der Seite — steuert <html lang> und später hreflang. */
+  lang?: 'de' | 'en';
+}
+
+const { title, description, lang = 'de' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- TODO: Favicon-Set aus dem finalen Vektor-Logo bauen (ASSETS.md §7) -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- OG: Bild folgt, sobald das Hero-After-Motiv als 1200×630 vorliegt -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+
+    <!-- hreflang vorbereitet, EN kommt nach der DE-Freigabe -->
+    <link rel="alternate" hreflang="de" href={new URL('/', Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>

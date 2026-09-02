@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "iconicuplift-dev",
+      "runtimeExecutable": "/Users/christian.wolf.remote/.local/node/bin/node",
+      "runtimeArgs": ["node_modules/astro/bin/astro.mjs", "dev"],
+      "port": 4321
+    }
+  ]
+}

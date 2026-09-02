@@ -36,12 +36,27 @@ Look: „Obsidian × Golden Hour" — dunkler Monolith, goldene Haarlinien, warm
 7. **Formulare:** Investor-Pack- und Deal-Form zunächst an einen Mail-Endpoint (Hostinger PHP-Mail oder externer Form-Service) — Ziel-Adresse per ENV, Double-Opt-in-Hinweis in DSGVO-Text. Keine Daten in Git.
 8. **Git:** Conventional Commits (`feat:`, `fix:`, `content:`), Branch je Feature, `main` = deploybar. Deploy auf Hostinger-Dev-Server per Git-Deploy oder FTP-Action (Zugang kommt von Christian, als GitHub Secrets ablegen).
 
-## Befehle (nach Scaffold aktualisieren)
+## Befehle
 ```bash
-npm run dev       # lokaler Dev-Server
-npm run build     # Produktions-Build (statisch)
+npm run dev       # lokaler Dev-Server auf http://localhost:4321
+npm run build     # Produktions-Build (statisch) nach dist/
 npm run preview   # Build lokal prüfen
+npm run check     # Astro-Typecheck
 ```
+
+Node liegt auf diesem Mac unter `~/.local/node` (v24.20.0 LTS, kein systemweiter
+Install). Der PATH wird über `~/.zshrc` gesetzt — in einem frischen Terminal ist
+`node` also da. Prozesse ohne Login-Shell (z. B. der Preview-Launcher) brauchen
+den absoluten Pfad, siehe `.claude/launch.json`.
+
+## Stack (Stand Scaffold)
+- **Astro 7** statisch, i18n-Routing aktiv (`/` = DE, `/en/` vorbereitet)
+- **Tailwind CSS v4** über `@tailwindcss/vite`; die Design-Tokens stehen als
+  `@theme` in `src/styles/global.css` und erzeugen Utilities (`text-gold`, …)
+- **Fonts self-hosted** über `@fontsource` — keine Requests an Google
+- **GSAP + Lenis** installiert, noch nicht verdrahtet (kommt mit Sektion 1)
+- Bilder liegen in `src/assets/img/` und werden im Build von Astro/sharp
+  automatisch nach AVIF/WebP in mehreren Breiten abgeleitet — keine Handexporte
 
 ## Arbeitsweise
 - Sektionsweise bauen und jeweils gegen das Design-Canvas (Desktop + Mobile) abgleichen.
