@@ -8,6 +8,11 @@ export default defineConfig({
   // Wird für Sitemap, hreflang und OG-URLs gebraucht.
   site: 'https://iconicuplift.com',
 
+  // Seiten werden als Verzeichnisse gebaut (/investors/index.html). Mit
+  // 'always' bleiben interne Links und ausgelieferte Pfade deckungsgleich —
+  // sonst kostet jeder Klick einen 301-Umweg.
+  trailingSlash: 'always',
+
   // DE ist Default und liegt auf "/", EN wird unter "/en/" vorbereitet.
   i18n: {
     locales: ['de', 'en'],

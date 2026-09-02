@@ -49,7 +49,7 @@ const { h2, body, secondary = 'deal', disclaimer = true } = Astro.props;
         {
           secondary !== 'none' && (
             <a
-              href="/contact"
+              href="/contact/"
               class="border border-[var(--color-line)] px-7 py-3.5 text-xs tracking-[0.12em] text-[var(--color-text-soft)] uppercase transition-colors duration-300 hover:border-[var(--color-gold)] hover:text-[var(--color-text)]"
             >
               {secondary === 'call' ? cta.tertiary : cta.secondary}

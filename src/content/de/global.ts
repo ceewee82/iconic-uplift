@@ -9,21 +9,21 @@ export const brand = {
 
 export const nav = {
   primary: [
-    { label: 'Investors', href: '/investors' },
-    { label: 'Owners', href: '/owners' },
-    { label: 'Process', href: '/process' },
+    { label: 'Investors', href: '/investors/' },
+    { label: 'Owners', href: '/owners/' },
+    { label: 'Process', href: '/process/' },
   ],
   overlay: {
     seiten: [
-      { label: 'Investors', href: '/investors' },
-      { label: 'Owners', href: '/owners' },
-      { label: 'Process', href: '/process' },
-      { label: 'Tiers', href: '/tiers' },
+      { label: 'Investors', href: '/investors/' },
+      { label: 'Owners', href: '/owners/' },
+      { label: 'Process', href: '/process/' },
+      { label: 'Tiers', href: '/tiers/' },
     ],
     mehr: [
-      { label: 'Visualisation', href: '/visualisation' },
-      { label: 'Team', href: '/team' },
-      { label: 'Contact', href: '/contact' },
+      { label: 'Visualisation', href: '/visualisation/' },
+      { label: 'Team', href: '/team/' },
+      { label: 'Contact', href: '/contact/' },
     ],
     social: [
       { label: 'LinkedIn', href: '#' },

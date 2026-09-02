@@ -89,14 +89,14 @@ export const dualTrack = [
     title: 'Sie verdienen zuerst.',
     text: 'Vorzugsrendite vor jedem Gewinn-Split, konservative Szenarien statt Versprechen, Reporting im Investorentakt. Refurbishment, geführt wie ein Investment.',
     linkLabel: 'MEHR FÜR INVESTOREN',
-    href: '/investors',
+    href: '/investors/',
   },
   {
     eyebrow: 'FÜR EIGENTÜMER',
     title: 'Bleiben Sie im Boot.',
     text: 'Sie müssen nicht verkaufen, um zu profitieren: Als Partner im Joint Venture partizipieren Sie an der Wertsteigerung Ihrer eigenen Villa — mit voller Transparenz vor dem ersten Bautag.',
     linkLabel: 'MEHR FÜR EIGENTÜMER',
-    href: '/owners',
+    href: '/owners/',
   },
 ] as const;
 

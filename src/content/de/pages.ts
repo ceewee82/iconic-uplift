@@ -315,7 +315,7 @@ export const contact = {
   hero: { eyebrow: 'KONTAKT', h1: 'Sprechen wir über Ihr Projekt.' },
   ways: [
     { title: 'Investor werden', text: 'Investor Pack anfordern und Mechanik besprechen.', href: '/#investor-pack' },
-    { title: 'Villa einbringen', text: 'Assessment für Ihre Bestandsvilla anfragen.', href: '/owners' },
+    { title: 'Villa einbringen', text: 'Assessment für Ihre Bestandsvilla anfragen.', href: '/owners/' },
   ],
   // TODO: finale Adresse klären (DEV_SPEC §8) — office@ ist laut Copy Platzhalter
   email: 'office@iconicuplift.com',
