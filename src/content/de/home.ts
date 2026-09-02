@@ -137,11 +137,13 @@ export const showcase = {
   // TODO: Preview-Bilder ergänzen — solange `image` leer ist, greift der
   // gestaltete Platzhalter im gleichen Colouring.
   projects: [
+    // TODO: Auf rieglerundpartner.at nicht auffindbar — Bild und Anker fehlen.
     {
       name: 'Lend Living',
       href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
       image: '',
     },
+    // TODO: dito
     {
       name: 'Sundown Living',
       href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
@@ -150,12 +152,12 @@ export const showcase = {
     {
       name: 'Villenblick 6',
       href: 'https://rieglerundpartner.at/fertiggestellte-projekte/#2553',
-      image: '',
+      image: 'villenblick-6.jpg',
     },
     {
       name: 'Riegler Downtown',
       href: 'https://rieglerundpartner.at/fertiggestellte-projekte/#407',
-      image: '',
+      image: 'riegler-downtown.jpg',
     },
   ],
   allProjects: 'alle Projekte',
