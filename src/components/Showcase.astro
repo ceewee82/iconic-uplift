@@ -44,7 +44,7 @@ const imageFor = (file: string) =>
       <p class="text-[0.6rem] tracking-[0.24em] text-[var(--color-text-dim)]">
         {showcase.trackRecordLabel}
       </p>
-      <ul class="tr-grid mt-6" data-reveal-group>
+      <ul class="tr-grid" data-reveal-group>
         {
           showcase.projects.map((project) => (
             <li>
@@ -163,7 +163,8 @@ const imageFor = (file: string) =>
   .tr-grid {
     display: grid;
     gap: 1rem;
-    margin: 0;
+    /* siehe Kommentar in Tiers.astro — margin-Reset schlaegt mt-* */
+    margin: 1.5rem 0 0;
     padding: 0;
     list-style: none;
     grid-template-columns: repeat(2, 1fr);

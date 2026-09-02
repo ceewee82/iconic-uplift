@@ -20,7 +20,7 @@ import { tiers } from '../content/de/home';
       </h2>
     </div>
 
-    <ol class="tier-scroller mt-12 md:mt-14" data-reveal-group>
+    <ol class="tier-scroller" data-reveal-group>
       {
         tiers.items.map((tier) => (
           <li class:list={['tier', tier.featured && 'tier-featured']}>
@@ -33,7 +33,7 @@ import { tiers } from '../content/de/home';
     </ol>
 
     <!-- Indikator nur mobil, spiegelt die Position im Snap-Scroll -->
-    <div class="tier-dots md:hidden" role="presentation">
+    <div class="tier-dots" role="presentation">
       {tiers.items.map(() => <span class="tier-dot" />)}
     </div>
   </div>
@@ -45,7 +45,9 @@ import { tiers } from '../content/de/home';
     grid-auto-flow: column;
     grid-auto-columns: 82%;
     gap: 1px;
-    margin: 0;
+    /* Abstand zur Headline steht hier und nicht als Tailwind-Klasse:
+       das margin-Reset dieser Regel wuerde ein mt-* sonst ueberschreiben. */
+    margin: 3.5rem 0 0;
     padding: 0 1.5rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -96,6 +98,8 @@ import { tiers } from '../content/de/home';
     color: var(--color-text-soft);
   }
 
+  /* Nur mobil sichtbar. Als Media Query und nicht ueber md:hidden, weil
+     das display:flex dieser Regel die Tailwind-Klasse ueberschreiben wuerde. */
   .tier-dots {
     display: flex;
     justify-content: center;
@@ -116,6 +120,7 @@ import { tiers } from '../content/de/home';
 
   @media (min-width: 768px) {
     .tier-scroller {
+      margin-top: 4.5rem;
       grid-auto-flow: initial;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
@@ -125,6 +130,10 @@ import { tiers } from '../content/de/home';
 
     .tier {
       padding: 3rem 2.5rem 3.5rem;
+    }
+
+    .tier-dots {
+      display: none;
     }
   }
 </style>
