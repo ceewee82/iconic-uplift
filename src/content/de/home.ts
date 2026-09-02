@@ -130,8 +130,36 @@ export const showcase = {
   h2: 'Ihre Villa. Fertig gedacht, bevor der erste Handgriff passiert.',
   videoLabel: 'VR-WALKTHROUGH · MUSTERPROJEKT (KONZEPT)',
   trackRecordLabel: 'TRACK RECORD · RIEGLER & PARTNER',
-  projects: ['Lend Living', 'Sundown Living', 'Villenblick 6', 'Riegler Downtown'],
+  // rieglerundpartner.at hat keine eigenen Projektseiten — alle Projekte
+  // liegen als Abschnitte auf /fertiggestellte-projekte/ und sind nur über
+  // Anker erreichbar. Für "Lend Living" und "Sundown Living" ließ sich dort
+  // kein Eintrag finden; sie zeigen bis auf Weiteres auf die Übersicht.
+  // TODO: Preview-Bilder ergänzen — solange `image` leer ist, greift der
+  // gestaltete Platzhalter im gleichen Colouring.
+  projects: [
+    {
+      name: 'Lend Living',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: '',
+    },
+    {
+      name: 'Sundown Living',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: '',
+    },
+    {
+      name: 'Villenblick 6',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/#2553',
+      image: '',
+    },
+    {
+      name: 'Riegler Downtown',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/#407',
+      image: '',
+    },
+  ],
   allProjects: 'alle Projekte',
+  projectsUrl: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
   // TODO: VR-Demo-Inhalt fehlt noch (DEV_SPEC §8)
   modalPending: 'Der VR-Walkthrough wird derzeit produziert.',
 } as const;
