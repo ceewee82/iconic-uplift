@@ -8,6 +8,11 @@ import DualTrack from '../components/DualTrack.astro';
 import Tiers from '../components/Tiers.astro';
 import Showcase from '../components/Showcase.astro';
 import Timelapse from '../components/Timelapse.astro';
+import Economics from '../components/Economics.astro';
+import Regions from '../components/Regions.astro';
+import Team from '../components/Team.astro';
+import FinalCta from '../components/FinalCta.astro';
+import Footer from '../components/Footer.astro';
 import { seo, trustBar } from '../content/de/home';
 import { brand } from '../content/de/global';
 ---
@@ -54,11 +59,19 @@ import { brand } from '../content/de/global';
     <!-- 8b · Construction Timelapse -->
     <Timelapse />
 
-    <!-- Sektionen 9–13 folgen (DEV_SPEC §4) -->
-    <section class="mx-auto max-w-[100rem] px-6 py-32 md:px-10">
-      <p class="text-xs tracking-[0.22em] text-[var(--color-text-dim)]">
-        NÄCHSTE SEKTION: 9 · ECONOMICS
-      </p>
-    </section>
+    <!-- 9 · Economics -->
+    <Economics />
+
+    <!-- 10 · Zielgebiete -->
+    <Regions />
+
+    <!-- 11 · Team -->
+    <Team />
+
+    <!-- 12 · Final CTA -->
+    <FinalCta />
   </main>
+
+  <!-- 13 · Footer -->
+  <Footer />
 </Base>

@@ -1,0 +1,272 @@
+---
+// Sektion 12 — Final CTA. Spec: DEV_SPEC §4 Zeile 12.
+// Radial-Glow pulst subtil (8-s-Loop), Formular inline.
+// Backend steht noch aus (DEV_SPEC §8) — siehe Kommentar im Script.
+import { finalCta } from '../content/de/home';
+import { cta } from '../content/de/global';
+---
+
+<section id="investor-pack" class="final border-b border-[var(--color-line)]">
+  <span class="final-glow" aria-hidden="true"></span>
+
+  <div class="relative mx-auto max-w-[100rem] px-6 py-28 md:px-10 md:py-40">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+        {finalCta.eyebrow}
+      </p>
+
+      <h2
+        class="mt-7 text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+        data-reveal
+        data-reveal-delay="0.08"
+      >
+        {finalCta.h2}
+      </h2>
+
+      <p
+        class="mt-8 text-base leading-relaxed text-[var(--color-text-soft)]"
+        data-reveal
+        data-reveal-delay="0.16"
+      >
+        {finalCta.body}
+      </p>
+
+      <form id="pack-form" class="form mt-12" novalidate data-reveal data-reveal-delay="0.24">
+        <div class="form-row">
+          <label class="field">
+            <span class="field-label">{finalCta.fields.name}</span>
+            <input type="text" name="name" autocomplete="name" required />
+          </label>
+
+          <label class="field">
+            <span class="field-label">{finalCta.fields.email}</span>
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+        </div>
+
+        {/* Honeypot — für Menschen unsichtbar, Bots füllen ihn aus (DEV_SPEC §1) */}
+        <div class="hp" aria-hidden="true">
+          <label>
+            Website
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </label>
+        </div>
+
+        <button type="submit" class="submit">{cta.formSubmit}</button>
+
+        <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <p class="mt-8 text-xs leading-relaxed text-[var(--color-text-dim)]">
+        {finalCta.consent}
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-black);
+  }
+
+  /* 8-Sekunden-Puls, rein über Deckkraft — nichts bewegt sich. */
+  .final-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60rem;
+    height: 60rem;
+    max-width: 160vw;
+    max-height: 160vw;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle,
+      rgba(224, 188, 122, 0.14) 0%,
+      rgba(224, 188, 122, 0) 62%
+    );
+    animation: final-pulse 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes final-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .final-glow {
+      animation: none;
+      opacity: 0.75;
+    }
+  }
+
+  .form-row {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .field {
+    display: block;
+    text-align: left;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+
+  .field input {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.85rem 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .field input:focus {
+    outline: none;
+    border-bottom-color: var(--color-gold);
+  }
+
+  .field input[aria-invalid='true'] {
+    border-bottom-color: #a5563f;
+  }
+
+  /* Honeypot: aus dem Blick und aus dem Fokus, aber nicht display:none —
+     manche Bots ignorieren versteckte Felder sonst. */
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .submit {
+    margin-top: 2rem;
+    padding: 1rem 2.5rem;
+    background: var(--color-gold);
+    border: 1px solid var(--color-gold);
+    color: var(--color-black);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit:hover:not(:disabled) {
+    background: var(--color-gold-light);
+  }
+
+  .submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .form-status {
+    margin-top: 1.25rem;
+    min-height: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+  }
+
+  .form-status[data-tone='error'] {
+    color: #c98b76;
+  }
+
+  .form-status[data-tone='success'] {
+    color: var(--color-gold-light);
+  }
+</style>
+
+<script>
+  import { microcopy } from '../content/de/global';
+
+  const form = document.getElementById('pack-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+
+  if (form && status) {
+    // Zeitschranke gegen Bots: Menschen brauchen länger als 2 Sekunden.
+    const mounted = Date.now();
+
+    // TODO (DEV_SPEC §8): Endpoint eintragen, sobald die Entscheidung
+    // zwischen Hostinger-PHP-Mailer und Form-Service gefallen ist.
+    const ENDPOINT = '';
+
+    const setStatus = (message: string, tone: 'error' | 'success' | '' = '') => {
+      status.textContent = message;
+      if (tone) status.dataset.tone = tone;
+      else delete status.dataset.tone;
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const data = new FormData(form);
+      const honeypot = String(data.get('website') ?? '');
+      if (honeypot || Date.now() - mounted < 2000) return; // stiller Abbruch
+
+      // Eigene Prüfung statt Browser-Dialog, damit die Meldung zur Copy passt
+      let valid = true;
+      form.querySelectorAll<HTMLInputElement>('input[required]').forEach((input) => {
+        const ok = input.checkValidity() && input.value.trim() !== '';
+        input.setAttribute('aria-invalid', String(!ok));
+        if (!ok) valid = false;
+      });
+
+      if (!valid) {
+        setStatus(microcopy.fieldError, 'error');
+        return;
+      }
+
+      if (!ENDPOINT) {
+        setStatus(
+          'Der Versand wird gerade eingerichtet. Schreiben Sie uns solange direkt an office@iconicuplift.com.',
+          'error',
+        );
+        return;
+      }
+
+      const submit = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      submit.disabled = true;
+      setStatus(microcopy.loading);
+
+      try {
+        const response = await fetch(ENDPOINT, { method: 'POST', body: data });
+        if (!response.ok) throw new Error(String(response.status));
+        form.reset();
+        setStatus(microcopy.formSuccess, 'success');
+      } catch {
+        setStatus(
+          'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie an office@iconicuplift.com.',
+          'error',
+        );
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  }
+</script>

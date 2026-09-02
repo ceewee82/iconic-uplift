@@ -1,0 +1,197 @@
+---
+// Sektion 10 — Zielgebiete. Spec: DEV_SPEC §4 Zeile 10.
+// SVG-Karte: Pfade zeichnen sich (stroke-dashoffset), Punkte poppen,
+// Karten rechts. Die Geometrie ist eine stilisierte Andeutung der Dubaier
+// Küstenlinie, keine geografisch exakte Karte.
+import { regions } from '../content/de/home';
+---
+
+<section id="regions" class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+  <div class="mx-auto max-w-[100rem] px-6 py-28 md:px-10 md:py-36">
+    <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+      {regions.eyebrow}
+    </p>
+    <h2
+      class="mt-7 max-w-3xl text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+      data-reveal
+      data-reveal-delay="0.08"
+    >
+      {regions.h2}
+    </h2>
+
+    <div class="mt-16 grid gap-14 lg:grid-cols-[58fr_42fr] lg:items-center lg:gap-20 md:mt-20">
+      <!-- Karte -->
+      <div class="map" data-reveal>
+        <svg
+          viewBox="0 0 640 420"
+          class="map-svg"
+          role="img"
+          aria-label="Stilisierte Karte der drei Zielgebiete in Dubai: Emirates Living, Jumeirah Islands und Palm Jumeirah."
+        >
+          <!-- Küstenlinie -->
+          <path
+            class="map-line"
+            d="M40 330 C 130 300, 190 268, 250 232 S 380 158, 470 120 S 570 82, 610 62"
+            fill="none"
+          />
+          <!-- Landeinwärts führende Achse -->
+          <path
+            class="map-line map-line-soft"
+            d="M96 386 C 180 350, 250 320, 320 274 S 452 206, 540 176"
+            fill="none"
+          />
+
+          <!-- Punkte der drei Gebiete -->
+          <g class="map-dots">
+            <circle class="map-dot" cx="196" cy="278" r="5" />
+            <circle class="map-dot" cx="330" cy="212" r="5" />
+            <circle class="map-dot" cx="486" cy="122" r="5" />
+          </g>
+
+          <g class="map-labels">
+            <text x="196" y="308" text-anchor="middle">EMIRATES LIVING</text>
+            <text x="330" y="242" text-anchor="middle">JUMEIRAH ISLANDS</text>
+            <text x="486" y="152" text-anchor="middle">PALM JUMEIRAH</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Karten rechts -->
+      <ol class="areas" data-reveal-group>
+        {
+          regions.areas.map((area, i) => (
+            <li class="area">
+              <span class="area-no">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="area-name">{area.name}</h3>
+              <p class="area-sub">{area.sub}</p>
+              <p class="area-text">{area.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .map {
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    padding: 1.5rem;
+  }
+
+  .map-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .map-line {
+    stroke: var(--color-gold);
+    stroke-width: 1.25;
+    stroke-linecap: round;
+  }
+
+  .map-line-soft {
+    stroke: var(--color-line);
+  }
+
+  .map-dot {
+    fill: var(--color-black);
+    stroke: var(--color-gold);
+    stroke-width: 1.25;
+  }
+
+  .map-labels text {
+    fill: var(--color-text-dim);
+    font-family: var(--font-display);
+    font-size: 9px;
+    letter-spacing: 1.6px;
+  }
+
+  .areas {
+    display: grid;
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    background: var(--color-line);
+    list-style: none;
+  }
+
+  .area {
+    background: var(--color-surface);
+    padding: 1.75rem;
+  }
+
+  .area-no {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    color: var(--color-text-dim);
+  }
+
+  .area-name {
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-text);
+  }
+
+  .area-sub {
+    margin-top: 0.35rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--color-gold-light);
+  }
+
+  .area-text {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--color-text-soft);
+  }
+</style>
+
+<script>
+  // Pfade zeichnen sich beim Eintritt, danach poppen die Punkte nach.
+  // Bewusst ohne GSAP: reine CSS-Transitions genügen, das spart Gewicht.
+  const svg = document.querySelector<SVGSVGElement>('#regions .map-svg');
+
+  if (svg) {
+    const lines = Array.from(svg.querySelectorAll<SVGPathElement>('.map-line'));
+    const dots = Array.from(svg.querySelectorAll<SVGCircleElement>('.map-dot'));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reduced) {
+      lines.forEach((line) => {
+        const length = line.getTotalLength();
+        line.style.strokeDasharray = String(length);
+        line.style.strokeDashoffset = String(length);
+        line.style.transition = 'stroke-dashoffset 1.4s ease-out';
+      });
+      dots.forEach((dot) => {
+        dot.style.transformOrigin = 'center';
+        dot.style.transform = 'scale(0)';
+        dot.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1)';
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            observer.disconnect();
+            lines.forEach((line) => {
+              line.style.strokeDashoffset = '0';
+            });
+            dots.forEach((dot, i) => {
+              window.setTimeout(() => {
+                dot.style.transform = 'scale(1)';
+              }, 700 + i * 140);
+            });
+          });
+        },
+        { threshold: 0.3 },
+      );
+      observer.observe(svg);
+    }
+  }
+</script>

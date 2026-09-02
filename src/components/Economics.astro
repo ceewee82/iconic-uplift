@@ -1,0 +1,134 @@
+---
+// Sektion 9 — Economics. Spec: DEV_SPEC §4 Zeile 9.
+// Wasserfall: drei Zeilen fahren nacheinander ein, Zeile 3 mit Gold-Rahmen
+// zuletzt. Compliance: keine Zahlen, keine Projektionen (CLAUDE.md Regel 1).
+import { economics } from '../content/de/home';
+
+const lastIndex = economics.waterfall.length - 1;
+---
+
+<section id="economics" class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+  <div class="mx-auto max-w-[100rem] px-6 py-28 md:px-10 md:py-36">
+    <div class="grid gap-14 lg:grid-cols-[42fr_58fr] lg:gap-20">
+      <div>
+        <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+          {economics.eyebrow}
+        </p>
+        <h2
+          class="mt-7 text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+          data-reveal
+          data-reveal-delay="0.08"
+        >
+          {economics.h2}
+        </h2>
+        <p
+          class="mt-8 max-w-xl text-base leading-relaxed text-[var(--color-text-soft)]"
+          data-reveal
+          data-reveal-delay="0.16"
+        >
+          {economics.body}
+        </p>
+      </div>
+
+      <div>
+        <!-- Wasserfall -->
+        <ol class="waterfall" data-reveal-group>
+          {
+            economics.waterfall.map((row, i) => (
+              <li class:list={['wf-row', i === lastIndex && 'wf-row-final']}>
+                <span class="wf-no">{row.no}</span>
+                <span class="wf-title">{row.title}</span>
+                <span class="wf-tag">{row.tag}</span>
+              </li>
+            ))
+          }
+        </ol>
+
+        <div class="mt-10" data-reveal data-reveal-delay="0.3">
+          <a
+            href="#investor-pack"
+            class="inline-block border border-[var(--color-gold)] px-7 py-3.5 text-xs tracking-[0.12em] text-[var(--color-gold-light)] uppercase transition-colors duration-300 hover:bg-[var(--color-gold)] hover:text-[var(--color-black)]"
+          >
+            {economics.cta}
+          </a>
+
+          <p class="mt-6 max-w-lg text-xs leading-relaxed text-[var(--color-text-dim)]">
+            {economics.note}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .waterfall {
+    display: grid;
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    background: var(--color-line);
+    list-style: none;
+  }
+
+  .wf-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.35rem 1.5rem;
+    background: var(--color-surface);
+    border: 1px solid transparent;
+    padding: 1.75rem 1.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .wf-row {
+      grid-template-columns: auto 1fr auto;
+      padding: 2rem 2.25rem;
+    }
+  }
+
+  /* Zeile 3 hervorgehoben (DEV_SPEC §4) */
+  .wf-row-final {
+    border-color: var(--color-gold);
+  }
+
+  .wf-no {
+    grid-row: span 2;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-text-dim);
+  }
+
+  @media (min-width: 640px) {
+    .wf-no {
+      grid-row: auto;
+    }
+  }
+
+  .wf-row-final .wf-no {
+    color: var(--color-gold);
+  }
+
+  .wf-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+
+  .wf-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--color-text-dim);
+  }
+
+  @media (min-width: 640px) {
+    .wf-tag {
+      text-align: right;
+    }
+  }
+
+  .wf-row-final .wf-tag {
+    color: var(--color-gold-light);
+  }
+</style>

@@ -153,6 +153,63 @@ export const timelapse = {
     'Zeitraffer einer Villensanierung in Dubai: vom Bestand über Rückbau, Rohbau und Fassade bis zur fertigen Villa in der Dämmerung.',
 } as const;
 
+export const economics = {
+  eyebrow: 'DAS MODELL',
+  h2: 'Sie verdienen zuerst. Wir erst, wenn Sie zufrieden sind.',
+  body: 'Unser Vergütungsmodell ist eine Reihenfolge, kein Kleingedrucktes: Zuerst fließt Ihr Kapital zurück. Dann Ihre Vorzugsrendite. Erst am Gewinn darüber sind wir beteiligt.',
+  waterfall: [
+    { no: '1', title: 'Kapitalrückführung', tag: 'AN DEN INVESTOR' },
+    { no: '2', title: 'Vorzugsrendite', tag: 'INVESTOR ZUERST' },
+    { no: '3', title: 'Gewinn-Split', tag: 'ERST DANN VERDIENEN WIR' },
+  ],
+  cta: 'Zahlen & Szenarien im Investor Pack',
+  // Compliance-Hinweis, CLAUDE.md Regel 1
+  note: 'Kein öffentliches Angebot. Konkrete Szenarien und Sensitivitäten erhalten Sie im persönlichen Investor Pack.',
+} as const;
+
+export const regions = {
+  eyebrow: 'PHASE-1-FOKUS',
+  h2: 'Reife Lagen. Knapper Bestand.',
+  areas: [
+    {
+      name: 'Emirates Living',
+      sub: 'Meadows, Lakes, Springs',
+      text: 'Reifer Bestand seit 2004, das Kern-Terrain für wiederholbare Value-Uplifts.',
+    },
+    {
+      name: 'Jumeirah Islands',
+      sub: 'Familiengeprägt, limitiert, gefragt',
+      text: 'Ideale Substanz für Signature-Transformationen.',
+    },
+    {
+      name: 'Palm Jumeirah',
+      sub: 'Die Bühne für Iconic-Projekte',
+      text: 'Showcase-Transformationen mit eigener Deal-Logik.',
+    },
+  ],
+} as const;
+
+export const team = {
+  eyebrow: 'DIE KÖPFE DAHINTER',
+  h2: 'Bauträger-DNA. Baustellen-Disziplin. Marken-Handwerk.',
+  members: [
+    { name: 'Herbert Riegler', role: 'Dealflow, Investor Relations, Track Record' },
+    { name: 'Markus Pein', role: 'Technische Planung, Bauleitung vor Ort' },
+    { name: 'Christian Wolf', role: 'Marke, Go-to-Market, VR-Visualisierung' },
+  ],
+  poweredByLabel: 'POWERED BY',
+  poweredBy: ['RIEGLER & PARTNER', 'MPBM', 'JACK COLEMAN', 'PANOROOM'],
+} as const;
+
+export const finalCta = {
+  eyebrow: 'DER NÄCHSTE SCHRITT',
+  h2: 'Das Investor Pack. Zahlen, Szenarien, Prozess.',
+  body: 'Deal-Band, konservative Szenario-Rechnungen, Reporting-Beispiel und die PrimeRefine-Methodik — kuratiert als PDF, persönlich nachgefasst.',
+  fields: { name: 'Name', email: 'E-Mail' },
+  consent:
+    'Kein öffentliches Angebot, keine Anlageberatung. Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß Datenschutzerklärung zu.',
+} as const;
+
 export const trustBar = [
   'Scope Lock statt Blackbox',
   'Reporting alle 2 Wochen',

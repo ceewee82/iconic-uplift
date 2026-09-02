@@ -1,0 +1,80 @@
+---
+// Sektion 11 — Team-Teaser. Spec: DEV_SPEC §4 Zeile 11.
+// Drei Portraits — Platzhalter, bis die Fotos vorliegen (DEV_SPEC §8).
+import { team } from '../content/de/home';
+---
+
+<section id="team" class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+  <div class="mx-auto max-w-[100rem] px-6 py-28 md:px-10 md:py-36">
+    <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+      {team.eyebrow}
+    </p>
+    <h2
+      class="mt-7 max-w-3xl text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+      data-reveal
+      data-reveal-delay="0.08"
+    >
+      {team.h2}
+    </h2>
+
+    <ul class="mt-16 grid gap-8 sm:grid-cols-3 md:mt-20 md:gap-10" data-reveal-group>
+      {
+        team.members.map((member) => (
+          <li>
+            {/* Platzhalter im Stil der späteren Fotos: dunkler Grund,
+                seitliches warmes Licht (ASSETS.md §7) */}
+            <div class="portrait" aria-hidden="true">
+              <span class="portrait-initials">
+                {member.name
+                  .split(' ')
+                  .map((part) => part[0])
+                  .join('')}
+              </span>
+            </div>
+            <h3 class="mt-6 font-[var(--font-display)] text-lg text-[var(--color-text)]">
+              {member.name}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--color-text-soft)]">
+              {member.role}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div
+      class="mt-16 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-[var(--color-line)] pt-8 md:mt-20"
+      data-reveal
+    >
+      <span class="text-[0.6rem] tracking-[0.24em] text-[var(--color-text-dim)]">
+        {team.poweredByLabel}
+      </span>
+      {
+        team.poweredBy.map((brand) => (
+          <span class="font-[var(--font-display)] text-xs tracking-[0.12em] text-[var(--color-text-soft)]">
+            {brand}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .portrait {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--color-line);
+    background:
+      radial-gradient(80% 70% at 20% 30%, rgba(176, 141, 87, 0.16) 0%, rgba(18, 18, 16, 0) 70%),
+      var(--color-surface);
+  }
+
+  .portrait-initials {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    letter-spacing: 0.12em;
+    color: var(--color-text-dim);
+  }
+</style>
