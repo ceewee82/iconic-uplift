@@ -48,6 +48,21 @@ jobs:
           test -f dist/index.html || { echo "dist/index.html fehlt — Build fehlgeschlagen"; exit 1; }
           echo "Build ok:"; du -sh dist
 
+      - name: Zielverzeichnis normalisieren
+        id: ftpdir
+        # Die Action verlangt einen Pfad mit Schrägstrich am Ende. Statt sich
+        # darauf zu verlassen, dass das Secret korrekt gepflegt ist, ergänzen
+        # wir ihn hier — spart eine Fehlerquelle beim Anlegen der Secrets.
+        env:
+          RAW: ${{ secrets.FTP_DIR }}
+        run: |
+          DIR="${RAW:-public_html/}"
+          case "$DIR" in
+            */) ;;
+            *) DIR="$DIR/" ;;
+          esac
+          echo "dir=$DIR" >> "$GITHUB_OUTPUT"
+
       - name: Auf Hostinger hochladen
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
@@ -55,7 +70,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ${{ secrets.FTP_DIR }}
+          server-dir: ${{ steps.ftpdir.outputs.dir }}
           # Nur geänderte Dateien übertragen; der Zustand wird serverseitig
           # in .ftp-deploy-sync-state.json vermerkt.
           dangerous-clean-slate: false
