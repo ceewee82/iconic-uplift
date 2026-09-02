@@ -220,10 +220,26 @@ export const regions = {
 export const team = {
   eyebrow: 'DIE KÖPFE DAHINTER',
   h2: 'Bauträger-DNA. Baustellen-Disziplin. Marken-Handwerk.',
+  // `photo` verweist auf den Dateinamen in src/assets/img/team/.
+  // Leer = noch kein Foto vorhanden, dann greift der Platzhalter.
+  // Der einheitliche Schwarz-Weiß-Look entsteht per CSS-Filter, nicht durch
+  // vorbearbeitete Dateien — so bleibt das Original unangetastet.
   members: [
-    { name: 'Herbert Riegler', role: 'Dealflow, Investor Relations, Track Record' },
-    { name: 'Markus Pein', role: 'Technische Planung, Bauleitung vor Ort' },
-    { name: 'Christian Wolf', role: 'Marke, Go-to-Market, VR-Visualisierung' },
+    {
+      name: 'Herbert Riegler',
+      role: 'Dealflow, Investor Relations, Track Record',
+      photo: 'herbert-riegler.jpg',
+    },
+    {
+      name: 'Markus Pein',
+      role: 'Technische Planung, Bauleitung vor Ort',
+      photo: 'markus-pein.webp',
+    },
+    {
+      name: 'Christian Wolf',
+      role: 'Marke, Go-to-Market, VR-Visualisierung',
+      photo: 'christian-wolf.jpg',
+    },
   ],
   poweredByLabel: 'POWERED BY',
   poweredBy: ['RIEGLER & PARTNER', 'MPBM', 'JACK COLEMAN', 'PANOROOM'],

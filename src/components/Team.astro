@@ -1,7 +1,16 @@
 ---
 // Sektion 11 — Team-Teaser. Spec: DEV_SPEC §4 Zeile 11.
-// Drei Portraits — Platzhalter, bis die Fotos vorliegen (DEV_SPEC §8).
+import { Picture } from 'astro:assets';
 import { team } from '../content/de/home';
+
+// Alle Teamfotos einsammeln, damit Astro sie im Build optimieren kann.
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/img/team/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+
+const photoFor = (file: string) =>
+  file ? photos[`../assets/img/team/${file}`]?.default : undefined;
 ---
 
 <section id="team" class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
@@ -19,26 +28,39 @@ import { team } from '../content/de/home';
 
     <ul class="mt-12 grid gap-8 sm:grid-cols-3 md:mt-14 md:gap-10" data-reveal-group>
       {
-        team.members.map((member) => (
-          <li>
-            {/* Platzhalter im Stil der späteren Fotos: dunkler Grund,
-                seitliches warmes Licht (ASSETS.md §7) */}
-            <div class="portrait" aria-hidden="true">
-              <span class="portrait-initials">
-                {member.name
-                  .split(' ')
-                  .map((part) => part[0])
-                  .join('')}
-              </span>
-            </div>
-            <h3 class="mt-6 font-[var(--font-display)] text-lg text-[var(--color-text)]">
-              {member.name}
-            </h3>
-            <p class="mt-2 text-sm leading-relaxed text-[var(--color-text-soft)]">
-              {member.role}
-            </p>
-          </li>
-        ))
+        team.members.map((member) => {
+          const photo = photoFor(member.photo);
+          return (
+            <li>
+              <div class="portrait">
+                {photo ? (
+                  <Picture
+                    src={photo}
+                    formats={['avif', 'webp']}
+                    widths={[400, Math.min(800, photo.width)]}
+                    sizes="(min-width: 640px) 30vw, 90vw"
+                    alt={`${member.name} — ${member.role}`}
+                    class="portrait-img"
+                  />
+                ) : (
+                  <span class="portrait-initials" aria-hidden="true">
+                    {member.name
+                      .split(' ')
+                      .map((part) => part[0])
+                      .join('')}
+                  </span>
+                )}
+                <span class="portrait-vignette" aria-hidden="true" />
+              </div>
+              <h3 class="mt-6 font-[var(--font-display)] text-lg text-[var(--color-text)]">
+                {member.name}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-[var(--color-text-soft)]">
+                {member.role}
+              </p>
+            </li>
+          );
+        })
       }
     </ul>
 
@@ -62,13 +84,41 @@ import { team } from '../content/de/home';
 
 <style>
   .portrait {
+    position: relative;
     display: grid;
     place-items: center;
+    overflow: hidden;
     aspect-ratio: 3 / 4;
     border: 1px solid var(--color-line);
     background:
       radial-gradient(80% 70% at 20% 30%, rgba(176, 141, 87, 0.16) 0%, rgba(18, 18, 16, 0) 70%),
       var(--color-surface);
+  }
+
+  /* Einheitlicher Schwarz-Weiß-Look nach dem Vorbild von Christians Foto:
+     entsättigt, kontrastreicher, leicht abgedunkelt. Bewusst als CSS-Filter
+     statt vorbearbeiteter Dateien — die Originale bleiben unangetastet und
+     der Look lässt sich an einer einzigen Stelle nachjustieren. */
+  .portrait :global(.portrait-img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    filter: grayscale(1) contrast(1.2) brightness(0.8);
+  }
+
+  /* Nach außen dunkelnder Verlauf. Holt helle Büro-Hintergründe näher an
+     den dunklen Studio-Grund von Christians Aufnahme heran — ersetzt aber
+     keine echte Freistellung oder Retusche. */
+  .portrait-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(76% 60% at 50% 36%, rgba(11, 11, 12, 0) 0%, rgba(11, 11, 12, 0.75) 100%),
+      linear-gradient(to bottom, rgba(11, 11, 12, 0.08) 0%, rgba(11, 11, 12, 0.6) 100%);
+    pointer-events: none;
   }
 
   .portrait-initials {
