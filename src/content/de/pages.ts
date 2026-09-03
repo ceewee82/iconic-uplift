@@ -291,10 +291,11 @@ export const teamPage = {
   },
   // Bios stehen laut Copy-Dokument noch aus ("Bios folgen von den Partnern").
   // Bis dahin bleibt das Feld leer statt mit Platzhaltertext gefüllt.
+  // Schlüssel entsprechen team.members[].key, nicht dem Anzeigenamen.
   bios: {
-    'Herbert Riegler': '',
-    'Markus Pein': '',
-    'Christian Wolf': '',
+    'herbert-riegler': '',
+    'markus-pein': '',
+    'christian-wolf': '',
   } as Record<string, string>,
   poweredByLine:
     'Vier Firmen, ein Standard: österreichische Verlässlichkeit, umgesetzt in Dubai.',

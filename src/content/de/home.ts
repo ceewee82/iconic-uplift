@@ -226,20 +226,29 @@ export const team = {
   // Leer = noch kein Foto vorhanden, dann greift der Platzhalter.
   // Der einheitliche Schwarz-Weiß-Look entsteht per CSS-Filter, nicht durch
   // vorbearbeitete Dateien — so bleibt das Original unangetastet.
+  // Dreizeilig: Name mit Titel, Position, Aufgabenschwerpunkt.
+  // `key` bleibt stabil und dient der Zuordnung von Bios — so bricht
+  // nichts, wenn sich Titel oder Schreibweise des Namens ändern.
   members: [
     {
-      name: 'Herbert Riegler',
-      role: 'Dealflow, Investor Relations, Track Record',
+      key: 'herbert-riegler',
+      name: 'Herbert Riegler, MBA',
+      position: 'CEO & Founder',
+      focus: 'Investor Relations, Deal-Flow & Acquisition',
       photo: 'herbert-riegler.jpg',
     },
     {
-      name: 'Markus Pein',
-      role: 'Technische Planung, Bauleitung vor Ort',
+      key: 'markus-pein',
+      name: 'BM DI(FH) Markus Pein, MSc.',
+      position: 'CCO & Co-Founder',
+      focus: 'Technische Planung & Bauleitung',
       photo: 'markus-pein.webp',
     },
     {
-      name: 'Christian Wolf',
-      role: 'Strategy, Marketing & Go-To Market, VR',
+      key: 'christian-wolf',
+      name: 'Christian Wolf, BA',
+      position: 'CMO & Co-Founder',
+      focus: 'Marketing & Communication Expert',
       photo: 'christian-wolf.jpg',
     },
   ],

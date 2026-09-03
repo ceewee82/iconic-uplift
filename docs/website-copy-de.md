@@ -112,9 +112,9 @@ Unten: `A RIEGLER & PARTNER COMPANY` · LinkedIn · Instagram
 
 ### 1.11 Team-Teaser
 - Eyebrow: `DIE KÖPFE DAHINTER` — **H2:** Bauträger-DNA. Baustellen-Disziplin. Marken-Handwerk.
-- Herbert Riegler — Dealflow, Investor Relations, Track Record
-- Markus Pein — Technische Planung, Bauleitung vor Ort
-- Christian Wolf — Strategy, Marketing & Go-To Market, VR
+- Herbert Riegler, MBA — CEO & Founder — Investor Relations, Deal-Flow & Acquisition
+- BM DI(FH) Markus Pein, MSc. — CCO & Co-Founder — Technische Planung & Bauleitung
+- Christian Wolf, BA — CMO & Co-Founder — Marketing & Communication Expert
 - POWERED BY: RIEGLER & PARTNER · MPBM · JACK COLEMAN · PANOROOM
 
 ### 1.12 Final CTA
@@ -288,9 +288,9 @@ Welcher Tier passt zu Ihrem Objekt? → [Deal einreichen] / [Assessment Call buc
 - Sub: IconicUplift ist keine Idee auf einem Pitchdeck — es ist die Bündelung von drei eingespielten Kompetenzen unter einer Marke.
 
 ### 7.2 Personen (je: Portrait, Rolle, 3-Zeilen-Bio — Bios folgen von den Partnern)
-- **Herbert Riegler** — Dealflow, Investor Relations, Track Record. *Bio-Platzhalter: Bauträger seit XX Jahren, Projekte Lend Living, Sundown Living, Villenblick 6, Riegler Downtown …*
-- **Markus Pein** — Technische Planung, Bauleitung vor Ort. *Bio-Platzhalter: MPBM Baumanagement, XX Jahre internationale Bauprojekte …*
-- **Christian Wolf** — Strategy, Marketing & Go-To Market, VR. *Bio-Platzhalter: Gründer Jack Coleman & Panoroom …*
+- **Herbert Riegler, MBA** — CEO & Founder — Investor Relations, Deal-Flow & Acquisition. *Bio-Platzhalter: Bauträger seit XX Jahren, Projekte Lend Living, Sundown Living, Villenblick 6, Riegler Downtown …*
+- **BM DI(FH) Markus Pein, MSc.** — CCO & Co-Founder — Technische Planung & Bauleitung. *Bio-Platzhalter: MPBM Baumanagement, XX Jahre internationale Bauprojekte …*
+- **Christian Wolf, BA** — CMO & Co-Founder — Marketing & Communication Expert. *Bio-Platzhalter: Gründer Jack Coleman & Panoroom …*
 
 ### 7.3 Powered by
 RIEGLER & PARTNER (Bauträger, AT) · MPBM (Baumanagement) · JACK COLEMAN (Brand & Marketing) · PANOROOM (VR & Visualisierung)
