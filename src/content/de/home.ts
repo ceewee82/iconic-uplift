@@ -130,34 +130,38 @@ export const showcase = {
   h2: 'Ihre Villa. Fertig gedacht, bevor der erste Handgriff passiert.',
   videoLabel: 'VR-WALKTHROUGH · MUSTERPROJEKT (KONZEPT)',
   trackRecordLabel: 'TRACK RECORD · RIEGLER & PARTNER',
-  // rieglerundpartner.at hat keine eigenen Projektseiten — alle Projekte
-  // liegen als Abschnitte auf /fertiggestellte-projekte/ und sind nur über
-  // Anker erreichbar. Für "Lend Living" und "Sundown Living" ließ sich dort
-  // kein Eintrag finden; sie zeigen bis auf Weiteres auf die Übersicht.
-  // TODO: Preview-Bilder ergänzen — solange `image` leer ist, greift der
-  // gestaltete Platzhalter im gleichen Colouring.
+  // Laufende Projekte haben auf rieglerundpartner.at eigene Seiten,
+  // abgeschlossene liegen als Abschnitte auf der Übersicht und sind nur
+  // über Anker erreichbar — daher die zwei unterschiedlichen Linkformen.
+  // `position` steuert den Bildausschnitt, wo die Mitte nicht das Motiv trifft.
   projects: [
-    // TODO: Auf rieglerundpartner.at nicht auffindbar — Bild und Anker fehlen.
     {
       name: 'Lend Living',
-      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
-      image: '',
+      href: 'https://rieglerundpartner.at/aktuelle-projekte/lend-living/',
+      image: 'lend-living.jpg',
+      // Geteiltes Motiv: links das Gebäude, rechts ein Interieur. Die Kachel
+      // zeigt beides, weil Quelle (1,41:1) und Kachel (4:3) fast gleich breit
+      // sind — object-position verschiebt hier nur wenige Prozent. Soll nur
+      // das Gebäude zu sehen sein, braucht es eine zugeschnittene Datei.
+      position: 'left center',
     },
-    // TODO: dito
     {
       name: 'Sundown Living',
-      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
-      image: '',
+      href: 'https://rieglerundpartner.at/aktuelle-projekte/sundown-living/',
+      image: 'sundown-living.jpg',
+      position: '',
     },
     {
       name: 'Villenblick 6',
       href: 'https://rieglerundpartner.at/fertiggestellte-projekte/#2553',
       image: 'villenblick-6.jpg',
+      position: '',
     },
     {
       name: 'Riegler Downtown',
       href: 'https://rieglerundpartner.at/fertiggestellte-projekte/#407',
       image: 'riegler-downtown.jpg',
+      position: '',
     },
   ],
   allProjects: 'alle Projekte',

@@ -58,6 +58,7 @@ const imageFor = (file: string) =>
                       sizes="(min-width: 900px) 22vw, 45vw"
                       alt={`Projekt ${project.name} von Riegler & Partner`}
                       class="tr-img"
+                      style={project.position ? `object-position: ${project.position}` : undefined}
                     />
                   ) : (
                     <span class="tr-thumb-empty" aria-hidden="true" />
