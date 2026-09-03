@@ -139,11 +139,7 @@ export const showcase = {
       name: 'Lend Living',
       href: 'https://rieglerundpartner.at/aktuelle-projekte/lend-living/',
       image: 'lend-living.jpg',
-      // Geteiltes Motiv: links das Gebäude, rechts ein Interieur. Die Kachel
-      // zeigt beides, weil Quelle (1,41:1) und Kachel (4:3) fast gleich breit
-      // sind — object-position verschiebt hier nur wenige Prozent. Soll nur
-      // das Gebäude zu sehen sein, braucht es eine zugeschnittene Datei.
-      position: 'left center',
+      position: '',
     },
     {
       name: 'Sundown Living',
