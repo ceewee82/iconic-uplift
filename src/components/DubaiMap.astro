@@ -15,118 +15,114 @@
     role="img"
     aria-label="Stilisierte Karte des westlichen Dubai: Küstenlinie, Palm Jumeirah und Sheikh Zayed Road. Markiert sind die drei Zielgebiete Palm Jumeirah, Jumeirah Islands und Emirates Living."
   >
-    <!-- Meer: alles nordwestlich der Küste -->
-    <path
-      class="map-sea"
-      d="M 60 560 C 180 465 300 375 420 285 C 540 195 690 120 840 60 L 900 60 L 900 0 L 0 0 L 0 560 Z"
-    />
+    <!-- Meer: alles nordwestlich der Küste. Küste und Straße laufen bewusst
+         über den Rahmen hinaus, damit sie an beiden Rändern durchgehen. -->
+    <path class="map-sea" d="M -40 626 C 200 468 480 262 940 -14 L 940 -40 L -40 -40 Z" />
 
-    <!-- Angedeutete Wasserlinien, ersetzen eine flächige Einfärbung -->
     <g class="map-waves">
-      <path d="M 78 300 C 118 292 158 284 198 276" />
-      <path d="M 96 196 C 136 188 176 180 216 172" />
-      <path d="M 470 128 C 510 120 550 112 590 104" />
-      <path d="M 560 196 C 600 188 640 180 680 172" />
+      <path d="M 70 300 C 110 292 150 284 190 276" />
+      <path d="M 120 410 C 160 402 200 394 240 386" />
+      <path d="M 560 120 C 600 112 640 104 680 96" />
     </g>
 
-    <!-- Küstenlinie -->
-    <path
-      class="map-line map-coast"
-      fill="none"
-      d="M 60 560 C 180 465 300 375 420 285 C 540 195 690 120 840 60"
-    />
+    <path class="map-line map-coast" fill="none" d="M -40 626 C 200 468 480 262 940 -14" />
 
-    <!-- Sheikh Zayed Road, Orientierungsachse im Landesinneren -->
-    <path
-      class="map-line map-road"
-      fill="none"
-      d="M 210 575 C 320 490 420 410 500 335 C 590 255 690 178 770 112"
-    />
+    <!-- Sheikh Zayed Road, durchgehend landeinwärts (37–73 px Abstand) -->
+    <path class="map-line map-road" fill="none"
+      d="M -40 700 C 200 540 470 350 600 258 C 730 166 830 96 940 20" />
 
-    <!-- ---------- Palm Jumeirah ---------- -->
-    <!-- Liegt vollständig im Wasser; nur der Stamm berührt die Küste.
-         Abstand Sichelmittelpunkt zur Küstenlinie: 129 px bei Radius 105. -->
+    <!-- ---------- Palm Jumeirah ----------
+         Sichelmittelpunkt 188 px von der Küste bei Radius 152 — die Insel
+         liegt vollständig im Wasser, nur der Stamm berührt Land. -->
     <g class="palm">
-      <path class="map-line palm-crescent" fill="none" d="M 365 283 A 105 105 0 1 1 444 214" />
-      <path class="map-line palm-trunk" fill="none" d="M 430 278 L 282 107" />
+      <path class="map-line palm-crescent" fill="none" d="M 292 333 A 152 152 0 1 1 418 248" />
+      <path class="map-line palm-trunk" fill="none" d="M 387 337 L 203 64" />
 
       <g class="palm-fronds">
-        <path class="map-line" d="M 386 227 L 439 151" />
-        <path class="map-line" d="M 386 227 L 303 269" />
-        <path class="map-line" d="M 365 203 L 411 108" />
-        <path class="map-line" d="M 365 203 L 264 235" />
-        <path class="map-line" d="M 344 179 L 373 85" />
-        <path class="map-line" d="M 344 179 L 247 194" />
-        <path class="map-line" d="M 323 155 L 333 83" />
-        <path class="map-line" d="M 323 155 L 250 155" />
-        <path class="map-line" d="M 304 133 L 303 91" />
-        <path class="map-line" d="M 304 133 L 262 126" />
+        <path class="map-line" d="M 350 283 L 423 207" />
+        <path class="map-line" d="M 350 283 L 252 322" />
+        <path class="map-line" d="M 328 250 L 416 130" />
+        <path class="map-line" d="M 328 250 L 183 285" />
+        <path class="map-line" d="M 306 217 L 381 77" />
+        <path class="map-line" d="M 306 217 L 148 233" />
+        <path class="map-line" d="M 284 184 L 334 47" />
+        <path class="map-line" d="M 284 184 L 138 179" />
+        <path class="map-line" d="M 262 151 L 286 38" />
+        <path class="map-line" d="M 262 151 L 148 131" />
+        <path class="map-line" d="M 240 119 L 246 43" />
+        <path class="map-line" d="M 240 119 L 168 95" />
       </g>
     </g>
 
-
-    <!-- The World Islands, angedeutet als lockere Punktwolke -->
+    <!-- The World Islands -->
     <g class="map-islands">
-        <circle cx="628" cy="131" r="2.5" />
-        <circle cx="682" cy="129" r="2.1" />
-        <circle cx="682" cy="127" r="1.7" />
-        <circle cx="621" cy="123" r="1.7" />
-        <circle cx="590" cy="132" r="1.8" />
-        <circle cx="648" cy="145" r="2.9" />
-        <circle cx="604" cy="108" r="3.0" />
-        <circle cx="695" cy="127" r="2.0" />
-        <circle cx="655" cy="129" r="2.0" />
-        <circle cx="652" cy="103" r="2.4" />
-        <circle cx="615" cy="101" r="2.4" />
-        <circle cx="659" cy="122" r="1.9" />
-        <circle cx="622" cy="97" r="2.0" />
-        <circle cx="603" cy="106" r="2.0" />
-        <circle cx="654" cy="90" r="1.9" />
-        <circle cx="599" cy="107" r="2.8" />
-        <circle cx="635" cy="99" r="3.0" />
-        <circle cx="671" cy="133" r="2.7" />
+      <circle cx="658" cy="117" r="3.1" />
+      <circle cx="659" cy="115" r="2.6" />
+      <circle cx="717" cy="130" r="2.6" />
+      <circle cx="706" cy="99" r="2.2" />
+      <circle cx="744" cy="125" r="2.7" />
+      <circle cx="756" cy="118" r="3.1" />
+      <circle cx="674" cy="90" r="1.9" />
+      <circle cx="743" cy="112" r="1.8" />
+      <circle cx="711" cy="125" r="1.7" />
+      <circle cx="661" cy="115" r="3.0" />
+      <circle cx="653" cy="107" r="2.4" />
+      <circle cx="679" cy="92" r="2.1" />
+      <circle cx="758" cy="110" r="3.0" />
+      <circle cx="691" cy="93" r="2.0" />
+      <circle cx="695" cy="120" r="2.8" />
+      <circle cx="657" cy="126" r="2.3" />
+      <circle cx="752" cy="103" r="1.7" />
+      <circle cx="714" cy="138" r="2.4" />
     </g>
 
     <!-- Dubai Marina als Turmgruppe an der Küste -->
     <g class="map-marina">
-        <path d="M 236 424 L 236 406" />
-        <path d="M 249 424 L 249 398" />
-        <path d="M 262 424 L 262 402" />
-        <path d="M 275 424 L 275 394" />
-        <path d="M 288 424 L 288 404" />
-        <path d="M 301 424 L 301 400" />
+      <path d="M 150 512 L 150 490" />
+      <path d="M 165 512 L 165 481" />
+      <path d="M 180 512 L 180 486" />
+      <path d="M 195 512 L 195 477" />
+      <path d="M 210 512 L 210 488" />
+      <path d="M 225 512 L 225 483" />
     </g>
 
     <!-- ---------- Zielgebiete ---------- -->
     <g class="map-leaders">
-      <path class="leader" d="M 452 182 L 600 200" />
-      <path class="leader" d="M 400 470 L 600 442" />
-      <path class="leader" d="M 490 512 L 600 528" />
+      <path class="leader" d="M 440 181 L 600 190" />
+      <path class="leader" d="M 480 452 L 600 438" />
+      <path class="leader" d="M 585 516 L 600 522" />
     </g>
 
     <g class="map-dots">
-      <circle class="map-dot" cx="345" cy="180" r="7" />
-      <circle class="map-dot" cx="390" cy="470" r="7" />
-      <circle class="map-dot" cx="480" cy="512" r="7" />
+      <circle class="map-dot" cx="282" cy="181" r="7" />
+      <circle class="map-dot" cx="470" cy="452" r="7" />
+      <circle class="map-dot" cx="575" cy="516" r="7" />
+    </g>
+
+    <!-- Nummern verweisen auf die Karten darunter; nur mobil sichtbar,
+         wo die ausgeschriebenen Labels zu klein würden. -->
+    <g class="map-nums" aria-hidden="true">
+      <text x="342" y="252">03</text>
+      <text x="488" y="444">02</text>
+      <text x="593" y="508">01</text>
     </g>
 
     <g class="map-labels">
-      <text x="614" y="196">PALM JUMEIRAH</text>
-      <text class="map-label-sub" x="614" y="216">Flagship &amp; Iconic</text>
+      <text x="614" y="186">PALM JUMEIRAH</text>
+      <text class="map-label-sub" x="614" y="206">Flagship &amp; Iconic</text>
 
-      <text x="614" y="438">JUMEIRAH ISLANDS</text>
-      <text class="map-label-sub" x="614" y="458">Signature-Terrain</text>
+      <text x="614" y="434">JUMEIRAH ISLANDS</text>
+      <text class="map-label-sub" x="614" y="454">Signature-Terrain</text>
 
-      <text x="614" y="524">EMIRATES LIVING</text>
-      <text class="map-label-sub" x="614" y="544">Meadows · Lakes · Springs</text>
+      <text x="614" y="518">EMIRATES LIVING</text>
+      <text class="map-label-sub" x="614" y="538">Meadows · Lakes · Springs</text>
     </g>
 
-    <!-- Orientierung, bewusst zurückgenommen -->
     <g class="map-context">
-      <text x="70" y="112">ARABISCHER GOLF</text>
-      <text x="586" y="66">THE WORLD</text>
-      <text x="252" y="454">DUBAI MARINA</text>
-      <text class="map-context-road" x="516" y="352" transform="rotate(-40 516 352)">
+      <text x="34" y="566">ARABISCHER GOLF</text>
+      <text x="650" y="62">THE WORLD</text>
+      <text x="242" y="506">DUBAI MARINA</text>
+      <text class="map-context-road" x="470" y="404" transform="rotate(-38 470 404)">
         SHEIKH ZAYED ROAD
       </text>
     </g>
@@ -232,6 +228,37 @@
     opacity: 0.5;
   }
 
+  /* Nummern: auf dem Desktop unsichtbar, dort stehen die vollen Labels */
+  .map-nums text {
+    fill: var(--color-gold-light);
+    font-family: var(--font-display);
+    font-size: 26px;
+    letter-spacing: 1px;
+    opacity: 0;
+    /* Dunkle Kontur hinter der Schrift: Die Nummern sitzen zwangslaeufig
+       nahe an Linien — so bleiben sie unabhaengig vom Untergrund lesbar. */
+    paint-order: stroke;
+    stroke: var(--color-black);
+    stroke-width: 4px;
+    stroke-linejoin: round;
+  }
+
+  /* Unter 768 px wird die Karte auf die Geografie beschnitten (siehe Script).
+     Die ausgeschriebenen Labels waeren dort nur ~5 px hoch — statt sie
+     unleserlich mitzuschleppen, uebernehmen die Nummern die Zuordnung
+     zu den Gebietskarten darunter. */
+  @media (max-width: 767px) {
+    .map-labels,
+    .map-leaders,
+    .map-context {
+      display: none;
+    }
+
+    .map-nums text {
+      opacity: 1;
+    }
+  }
+
   .map-context .map-context-road {
     font-size: 10px;
     letter-spacing: 1.8px;
@@ -245,6 +272,15 @@
   const svg = document.querySelector<SVGSVGElement>('.map-svg');
 
   if (svg) {
+    // Mobil auf die Geografie beschneiden: Die rechte Label-Spalte entfaellt,
+    // dadurch wird der gezeichnete Teil deutlich groesser statt nur kleiner.
+    const schmal = window.matchMedia('(max-width: 767px)');
+    const setzeAusschnitt = () => {
+      svg.setAttribute('viewBox', schmal.matches ? '0 0 660 600' : '0 0 900 600');
+    };
+    setzeAusschnitt();
+    schmal.addEventListener('change', setzeAusschnitt);
+
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const lines = Array.from(svg.querySelectorAll<SVGPathElement>('.map-line'));
     const dots = Array.from(svg.querySelectorAll<SVGCircleElement>('.map-dot'));
