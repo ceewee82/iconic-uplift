@@ -53,12 +53,12 @@ Unten: `A RIEGLER & PARTNER COMPANY` · LinkedIn · Instagram
 - Scroll-Hinweis: `SCROLL`
 
 ### 1.2 Trust Bar
-`A RIEGLER & PARTNER COMPANY` · Scope Lock statt Blackbox · Reporting alle 2 Wochen · Bauleitung vor Ort · VR vor Baubeginn
+`A RIEGLER & PARTNER COMPANY` · Scope Lock statt Blackbox · Reporting alle 2 Wochen · Österreichische Bauleitung vor Ort · VR vor Baubeginn
 
 ### 1.3 Problem
 - Eyebrow: `DAS PROBLEM`
 - **H2:** Renovierung ist eine Blackbox. *Wir haben sie geöffnet.*
-- Body: Dubais reife Villen-Communities sind voller unterschätzter Substanz. Doch wer saniert, kämpft mit explodierenden Budgets, wandernden Zeitplänen und Qualität nach Tageslaune. Genau dafür haben wir ein System gebaut.
+- Body: Dubais reife Villen-Communities - von PALM JUMEIRAH, JUMEIRAH ISLANDS bis hin zu EMIRATES LIVING sind voller unterschätzter Substanz. Doch wer saniert, kämpft mit explodierenden Budgets, wandernden Zeitplänen und Qualität nach Tageslaune. Genau um diese bekannten Problem zu lösen, haben wir ein System gebaut.
 - Karten:
   1. **Scope Creep** — Unkontrollierte Änderungen sprengen Budget und Zeitplan — der häufigste Wertvernichter.
   2. **Timeline-Drift** — Jede Woche Verzug frisst Rendite und verschiebt das Exit-Fenster.
@@ -67,9 +67,9 @@ Unten: `A RIEGLER & PARTNER COMPANY` · LinkedIn · Instagram
 
 ### 1.4 Methode (PrimeRefine)
 - Eyebrow: `DIE METHODE` — **H2:** PrimeRefine — fünf Schritte, ein System.
-1. **SCREEN** — Deal-Scoring, Risiko-Scan und Budget-Band — Entscheidung in 48 Stunden.
+1. **SCREEN** — Deal-Scoring, Risiko-Scan und Budget-Band — Entscheidung in maximal 10 Tagen.
 2. **REFINE** — Konzeptvarianten, Tier-Wahl und Scope Lock — der Umfang steht, bevor gebaut wird.
-3. **EXECUTE** — Bauleitung vor Ort, Milestones und QC — keine Änderung ohne Freigabe.
+3. **EXECUTE** — Österreichische Bauleitung vor Ort, exakte Milestones und Qualitätskontrolle — keine Änderung ohne Freigabe.
 4. **VERIFY** — Abnahmen, Punch List und As-built-Dokumentation — Qualität ist ein Prozess.
 5. **SELL-READY** — VR, Renders, Video und Broker-Pack — das Asset ist ab Tag eins vermarktbar.
 - Fußzeile: Reporting-Kadenz: alle 2 Wochen in der Bauphase · Milestone-Abnahmen · gemeinsamer Datenraum
@@ -99,7 +99,7 @@ Unten: `A RIEGLER & PARTNER COMPANY` · LinkedIn · Instagram
 
 ### 1.9 Economics
 - Eyebrow: `DAS MODELL` — **H2:** Sie verdienen zuerst. Wir erst, wenn Sie zufrieden sind.
-- Body: Unser Vergütungsmodell ist eine Reihenfolge, kein Kleingedrucktes: Zuerst fließt Ihr Kapital zurück. Dann Ihre Vorzugsrendite. Erst am Gewinn darüber sind wir beteiligt.
+- Body: Unser Modell ist eine Reihenfolge, kein Kleingedrucktes: Zuerst fließt das Kapital zurück. Dann Ihre Vorzugsrendite. Dann wird der Gewinn geteilt.
 - Wasserfall: 1 · Kapitalrückführung `AN DEN INVESTOR` / 2 · Vorzugsrendite `INVESTOR ZUERST` / 3 · Gewinn-Split `ERST DANN VERDIENEN WIR`
 - CTA: [Zahlen & Szenarien im Investor Pack]
 - Hinweis: Kein öffentliches Angebot. Konkrete Szenarien und Sensitivitäten erhalten Sie im persönlichen Investor Pack.

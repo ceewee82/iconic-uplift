@@ -30,7 +30,7 @@ export const problem = {
   // anzufassen.
   h2: 'Renovierung ist eine Blackbox.',
   h2Emphasis: 'Wir haben sie geöffnet.',
-  body: 'Dubais reife Villen-Communities sind voller unterschätzter Substanz. Doch wer saniert, kämpft mit explodierenden Budgets, wandernden Zeitplänen und Qualität nach Tageslaune. Genau dafür haben wir ein System gebaut.',
+  body: 'Dubais reife Villen-Communities - von PALM JUMEIRAH, JUMEIRAH ISLANDS bis hin zu EMIRATES LIVING sind voller unterschätzter Substanz. Doch wer saniert, kämpft mit explodierenden Budgets, wandernden Zeitplänen und Qualität nach Tageslaune. Genau um diese bekannten Problem zu lösen, haben wir ein System gebaut.',
   cards: [
     {
       title: 'Scope Creep',
@@ -57,7 +57,7 @@ export const primeRefine = {
   steps: [
     {
       title: 'SCREEN',
-      text: 'Deal-Scoring, Risiko-Scan und Budget-Band — Entscheidung in 48 Stunden.',
+      text: 'Deal-Scoring, Risiko-Scan und Budget-Band — Entscheidung in maximal 10 Tagen.',
     },
     {
       title: 'REFINE',
@@ -65,7 +65,7 @@ export const primeRefine = {
     },
     {
       title: 'EXECUTE',
-      text: 'Bauleitung vor Ort, Milestones und QC — keine Änderung ohne Freigabe.',
+      text: 'Österreichische Bauleitung vor Ort, exakte Milestones und Qualitätskontrolle — keine Änderung ohne Freigabe.',
     },
     {
       title: 'VERIFY',
@@ -186,7 +186,7 @@ export const timelapse = {
 export const economics = {
   eyebrow: 'DAS MODELL',
   h2: 'Sie verdienen zuerst. Wir erst, wenn Sie zufrieden sind.',
-  body: 'Unser Vergütungsmodell ist eine Reihenfolge, kein Kleingedrucktes: Zuerst fließt Ihr Kapital zurück. Dann Ihre Vorzugsrendite. Erst am Gewinn darüber sind wir beteiligt.',
+  body: 'Unser Modell ist eine Reihenfolge, kein Kleingedrucktes: Zuerst fließt das Kapital zurück. Dann Ihre Vorzugsrendite. Dann wird der Gewinn geteilt.',
   waterfall: [
     { no: '1', title: 'Kapitalrückführung', tag: 'AN DEN INVESTOR' },
     { no: '2', title: 'Vorzugsrendite', tag: 'INVESTOR ZUERST' },
@@ -274,6 +274,6 @@ export const finalCta = {
 export const trustBar = [
   'Scope Lock statt Blackbox',
   'Reporting alle 2 Wochen',
-  'Bauleitung vor Ort',
+  'Österreichische Bauleitung vor Ort',
   'VR vor Baubeginn',
 ] as const;
