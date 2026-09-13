@@ -1,10 +1,9 @@
 ---
 // Sektion 9 — Economics. Spec: DEV_SPEC §4 Zeile 9.
-// Wasserfall: drei Zeilen fahren nacheinander ein, Zeile 3 mit Gold-Rahmen
-// zuletzt. Compliance: keine Zahlen, keine Projektionen (CLAUDE.md Regel 1).
+// Wasserfall: drei Zeilen fahren nacheinander ein, die hervorgehobene Zeile
+// traegt einen Gold-Rahmen (siehe `featured` in den Daten).
+// Compliance: keine Zahlen, keine Projektionen (CLAUDE.md Regel 1).
 import { economics } from '../content/de/home';
-
-const lastIndex = economics.waterfall.length - 1;
 ---
 
 <section id="economics" class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
@@ -34,8 +33,8 @@ const lastIndex = economics.waterfall.length - 1;
         <!-- Wasserfall -->
         <ol class="waterfall" data-reveal-group>
           {
-            economics.waterfall.map((row, i) => (
-              <li class:list={['wf-row', i === lastIndex && 'wf-row-final']}>
+            economics.waterfall.map((row) => (
+              <li class:list={['wf-row', row.featured && 'wf-row-featured']}>
                 <span class="wf-no">{row.no}</span>
                 <span class="wf-title">{row.title}</span>
                 <span class="wf-tag">{row.tag}</span>
@@ -89,7 +88,7 @@ const lastIndex = economics.waterfall.length - 1;
   }
 
   /* Zeile 3 hervorgehoben (DEV_SPEC §4) */
-  .wf-row-final {
+  .wf-row-featured {
     border-color: var(--color-gold);
   }
 
@@ -106,7 +105,7 @@ const lastIndex = economics.waterfall.length - 1;
     }
   }
 
-  .wf-row-final .wf-no {
+  .wf-row-featured .wf-no {
     color: var(--color-gold);
   }
 
@@ -128,7 +127,7 @@ const lastIndex = economics.waterfall.length - 1;
     }
   }
 
-  .wf-row-final .wf-tag {
+  .wf-row-featured .wf-tag {
     color: var(--color-gold-light);
   }
 </style>

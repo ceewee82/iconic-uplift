@@ -187,10 +187,12 @@ export const economics = {
   eyebrow: 'DAS MODELL',
   h2: 'Sie verdienen zuerst. Wir erst, wenn Sie zufrieden sind.',
   body: 'Unser Modell ist eine Reihenfolge, kein Kleingedrucktes: Zuerst fließt das Kapital zurück. Dann Ihre Vorzugsrendite. Dann wird der Gewinn geteilt.',
+  // `featured` bestimmt, welche Zeile den Gold-Rahmen bekommt — vorher hing
+  // das fest an der letzten Zeile.
   waterfall: [
-    { no: '1', title: 'Kapitalrückführung', tag: 'AN DEN INVESTOR' },
-    { no: '2', title: 'Vorzugsrendite', tag: 'INVESTOR ZUERST' },
-    { no: '3', title: 'Gewinn-Split', tag: 'ERST DANN VERDIENEN WIR' },
+    { no: '1', title: 'Kapitalrückführung', tag: 'AN DEN INVESTOR', featured: false },
+    { no: '2', title: 'Vorzugsrendite', tag: 'INVESTOR ZUERST', featured: true },
+    { no: '3', title: 'Gewinn-Split', tag: 'ERST DANN VERDIENEN WIR', featured: false },
   ],
   cta: 'Zahlen & Szenarien im Investor Pack',
   // Compliance-Hinweis, CLAUDE.md Regel 1
