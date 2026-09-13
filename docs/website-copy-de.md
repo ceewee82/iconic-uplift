@@ -92,7 +92,7 @@ Unten: `A RIEGLER & PARTNER COMPANY` · LinkedIn · Instagram
 
 ### 1.8 Construction Timelapse
 - Eyebrow: `VOM BESTAND ZUM STATEMENT`
-- **H2:** 25 Sekunden. Ein kompletter Umbau.
+- **H2:** Gute Substanz. Neuer Glanz.
 - Seitenclaim: RÜCKBAU AUF DEN KERN — NICHT ABRISS. DIE SUBSTANZ BLEIBT, DER WERT ENTSTEHT NEU.
 - Video: 25-Sek-MP4, Autoplay/Muted/Loop, Phasen: Bestand → Rückbau → Rohbau → Fassade → Außenanlagen → Golden Hour
 - Phasen-Captions: 01 Bestand · Unterschätzte Substanz / 02 Rückbau · Der Kern bleibt stehen / 03 Rohbau · Neue Struktur, alter Kern / 04 Fassade & Glas · Glasfronten & Finish / 05 Außenanlagen · Garten, Pool, Terrasse / 06 Golden Hour · Sell-ready übergeben

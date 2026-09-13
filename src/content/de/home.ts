@@ -168,7 +168,7 @@ export const showcase = {
 
 export const timelapse = {
   eyebrow: 'VOM BESTAND ZUM STATEMENT',
-  h2: '25 Sekunden. Ein kompletter Umbau.',
+  h2: 'Gute Substanz. Neuer Glanz.',
   claim:
     'RÜCKBAU AUF DEN KERN — NICHT ABRISS. DIE SUBSTANZ BLEIBT, DER WERT ENTSTEHT NEU.',
   phases: [
