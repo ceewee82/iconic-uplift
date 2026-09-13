@@ -100,7 +100,7 @@ Unten: `A RIEGLER & PARTNER COMPANY` · LinkedIn · Instagram
 ### 1.9 Economics
 - Eyebrow: `DAS MODELL` — **H2:** Sie verdienen zuerst. Wir erst, wenn Sie zufrieden sind.
 - Body: Unser Modell ist eine Reihenfolge, kein Kleingedrucktes: Zuerst fließt das Kapital zurück. Dann Ihre Vorzugsrendite. Dann wird der Gewinn geteilt.
-- Wasserfall: 1 · Kapitalrückführung `AN DEN INVESTOR` / 2 · Vorzugsrendite `INVESTOR ZUERST` / 3 · Gewinn-Split `ERST DANN VERDIENEN WIR`
+- Wasserfall: 1 · Kapitalrückführung `AN DEN INVESTOR` / 2 · Vorzugsrendite `INVESTOR ZUERST` / 3 · Gewinn-Split `UNSERE BETEILIGUNG`
 - CTA: [Zahlen & Szenarien im Investor Pack]
 - Hinweis: Kein öffentliches Angebot. Konkrete Szenarien und Sensitivitäten erhalten Sie im persönlichen Investor Pack.
 

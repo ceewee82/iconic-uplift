@@ -192,7 +192,7 @@ export const economics = {
   waterfall: [
     { no: '1', title: 'Kapitalrückführung', tag: 'AN DEN INVESTOR', featured: false },
     { no: '2', title: 'Vorzugsrendite', tag: 'INVESTOR ZUERST', featured: true },
-    { no: '3', title: 'Gewinn-Split', tag: 'ERST DANN VERDIENEN WIR', featured: false },
+    { no: '3', title: 'Gewinn-Split', tag: 'UNSERE BETEILIGUNG', featured: false },
   ],
   cta: 'Zahlen & Szenarien im Investor Pack',
   // Compliance-Hinweis, CLAUDE.md Regel 1
