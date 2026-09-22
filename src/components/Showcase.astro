@@ -2,17 +2,9 @@
 // Sektion 8 — Showcase / VR. Spec: DEV_SPEC §4 Zeile 8.
 // Golden-Hour-Bühne, Video-Platzhalter mit Play (Inhalt folgt, DEV_SPEC §8),
 // darunter die Track-Record-Zeile.
-import { Picture } from 'astro:assets';
 import { showcase } from '../content/de/home';
+import TrackRecord from './TrackRecord.astro';
 
-// Projektbilder einsammeln, damit Astro sie optimieren kann.
-const projectImages = import.meta.glob<{ default: ImageMetadata }>(
-  '../assets/img/projects/*.{jpg,jpeg,png,webp}',
-  { eager: true },
-);
-
-const imageFor = (file: string) =>
-  file ? projectImages[`../assets/img/projects/${file}`]?.default : undefined;
 ---
 
 <section id="visualisation" class="showcase border-b border-[var(--color-line)]">
@@ -39,52 +31,11 @@ const imageFor = (file: string) =>
       </button>
     </div>
 
-    <!-- Track Record -->
-    <div class="mt-12 border-t border-[var(--color-line)] pt-8 md:mt-14" data-reveal>
-      <p class="text-[0.6rem] tracking-[0.24em] text-[var(--color-text-dim)]">
-        {showcase.trackRecordLabel}
-      </p>
-      <ul class="tr-grid" data-reveal-group>
-        {
-          showcase.projects.map((project) => (
-            <li>
-              <a class="tr-card" href={project.href} target="_blank" rel="noopener noreferrer">
-                <span class="tr-thumb">
-                  {imageFor(project.image) ? (
-                    <Picture
-                      src={imageFor(project.image)!}
-                      formats={['avif', 'webp']}
-                      widths={[320, 640]}
-                      sizes="(min-width: 900px) 22vw, 45vw"
-                      alt={`Projekt ${project.name} von Riegler & Partner`}
-                      class="tr-img"
-                      style={project.position ? `object-position: ${project.position}` : undefined}
-                    />
-                  ) : (
-                    <span class="tr-thumb-empty" aria-hidden="true" />
-                  )}
-                </span>
-                <span class="tr-name">
-                  {project.name}
-                  <svg class="tr-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-                    <path d="M7 17 17 7M9 7h8v8" />
-                  </svg>
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-
-      <a
-        href={showcase.projectsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="mt-7 inline-flex items-center gap-2 text-xs text-[var(--color-gold-light)] transition-colors hover:text-[var(--color-gold-bright)]"
-      >
-        {showcase.allProjects}
-        <span aria-hidden="true">→</span>
-      </a>
+    <!-- Track Record: zwei grosse Kacheln plus eine Viererreihe.
+         Die Darstellung steckt in TrackRecord.astro, weil die About-Seite
+         denselben Block mit zwei Reihen nutzt. -->
+    <div class="mt-12 border-t border-[var(--color-line)] pt-8 md:mt-14">
+      <TrackRecord rows={1} />
     </div>
   </div>
 </section>
@@ -160,93 +111,6 @@ const imageFor = (file: string) =>
     color: var(--color-text-dim);
   }
 
-  /* ---------- Track Record ---------- */
-  .tr-grid {
-    display: grid;
-    gap: 1rem;
-    /* siehe Kommentar in Tiers.astro — margin-Reset schlaegt mt-* */
-    margin: 1.5rem 0 0;
-    padding: 0;
-    list-style: none;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 900px) {
-    .tr-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  .tr-card {
-    display: block;
-    text-decoration: none;
-  }
-
-  .tr-thumb {
-    display: block;
-    overflow: hidden;
-    border: 1px solid var(--color-line);
-    background: var(--color-surface);
-    aspect-ratio: 4 / 3;
-  }
-
-  .tr-thumb :global(.tr-img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* An die Bildwelt angeglichen: leicht entsättigt und abgedunkelt,
-       damit fremde Projektfotos nicht aus dem Look fallen. */
-    filter: saturate(0.72) brightness(0.82) contrast(1.05);
-    transition:
-      filter 0.5s ease,
-      transform 0.6s ease;
-  }
-
-  .tr-card:hover :global(.tr-img),
-  .tr-card:focus-visible :global(.tr-img) {
-    filter: saturate(0.95) brightness(0.95) contrast(1.02);
-    transform: scale(1.03);
-  }
-
-  /* Platzhalter, solange kein Bild vorliegt */
-  .tr-thumb-empty {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background:
-      radial-gradient(80% 70% at 30% 25%, rgba(176, 141, 87, 0.18) 0%, rgba(18, 18, 16, 0) 70%),
-      var(--color-surface);
-  }
-
-  .tr-name {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-top: 0.85rem;
-    font-family: var(--font-display);
-    font-size: 0.875rem;
-    color: var(--color-text-soft);
-    transition: color 0.3s ease;
-  }
-
-  .tr-card:hover .tr-name,
-  .tr-card:focus-visible .tr-name {
-    color: var(--color-gold-light);
-  }
-
-  .tr-arrow {
-    width: 0.85rem;
-    height: 0.85rem;
-    flex-shrink: 0;
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
-  }
-
-  .tr-card:hover .tr-arrow,
-  .tr-card:focus-visible .tr-arrow {
-    opacity: 1;
-  }
 
   /* ---------- Lightbox ---------- */
   .vr-modal {

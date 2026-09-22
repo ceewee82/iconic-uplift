@@ -1,0 +1,144 @@
+---
+// Kennzahlen, die beim Eintritt hochzählen.
+// Compliance: ausschliesslich Track-Record-Zahlen zu abgeschlossenen
+// Projekten — keine Renditen, keine Projektionen (CLAUDE.md Regel 1).
+import { about } from '../content/de/about';
+
+const { kennzahlen } = about;
+---
+
+<section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+  <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+    <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+      {kennzahlen.eyebrow}
+    </p>
+    <h2
+      class="mt-7 max-w-3xl text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+      data-reveal
+      data-reveal-delay="0.08"
+    >
+      {kennzahlen.h2}
+    </h2>
+
+    <ol class="kpis" data-reveal-group>
+      {
+        kennzahlen.items.map((item) => (
+          <li class="kpi">
+            <span
+              class="kpi-wert"
+              data-count={String(item.wert)}
+              data-suffix={item.suffix}
+            >
+              0{item.suffix}
+            </span>
+            <span class="kpi-label">{item.label}</span>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p class="mt-10 max-w-2xl text-xs leading-relaxed text-[var(--color-text-dim)]" data-reveal>
+      {kennzahlen.hinweis}
+    </p>
+  </div>
+</section>
+
+<style>
+  .kpis {
+    display: grid;
+    gap: 1px;
+    margin: 3.5rem 0 0;
+    padding: 0;
+    background: var(--color-line);
+    list-style: none;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 900px) {
+    .kpis {
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 4rem;
+    }
+  }
+
+  .kpi {
+    background: var(--color-surface);
+    padding: 2rem 1.5rem 2.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .kpi {
+      padding: 2.75rem 2rem 3rem;
+    }
+  }
+
+  .kpi-wert {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-gold-light);
+    /* Tabellenziffern: sonst springt die Breite beim Hochzählen */
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (min-width: 768px) {
+    .kpi-wert {
+      font-size: 3rem;
+    }
+  }
+
+  .kpi-label {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--color-text-soft);
+  }
+</style>
+
+<script>
+  const werte = Array.from(document.querySelectorAll<HTMLElement>('.kpi-wert'));
+  const reduziert = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const endwert = (el: HTMLElement) => Number(el.dataset.count ?? 0);
+  const schreibe = (el: HTMLElement, n: number) => {
+    el.textContent = `${n}${el.dataset.suffix ?? ''}`;
+  };
+
+  if (reduziert) {
+    // Ohne Bewegung: Zahlen stehen sofort da.
+    werte.forEach((el) => schreibe(el, endwert(el)));
+  } else if (werte.length > 0) {
+    const DAUER = 1400; // ms — unter der 0,8-s-Grenze läge kein lesbarer Zähler,
+    // deshalb bewusst länger; CLAUDE.md Regel 4 nennt die Grenze für
+    // Bewegung, hier ändert sich nur eine Zahl.
+
+    const zaehle = (el: HTMLElement) => {
+      const ziel = endwert(el);
+      const start = performance.now();
+      const schritt = (jetzt: number) => {
+        const t = Math.min(1, (jetzt - start) / DAUER);
+        // ease-out: schnell anlaufen, sanft einrasten
+        const e = 1 - Math.pow(1 - t, 3);
+        schreibe(el, Math.round(ziel * e));
+        if (t < 1) requestAnimationFrame(schritt);
+      };
+      requestAnimationFrame(schritt);
+    };
+
+    const beobachter = new IntersectionObserver(
+      (eintraege) => {
+        eintraege.forEach((eintrag) => {
+          if (!eintrag.isIntersecting) return;
+          beobachter.unobserve(eintrag.target);
+          zaehle(eintrag.target as HTMLElement);
+        });
+      },
+      { threshold: 0.5 },
+    );
+    werte.forEach((el) => beobachter.observe(el));
+  }
+</script>

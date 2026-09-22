@@ -134,30 +134,86 @@ export const showcase = {
   // abgeschlossene liegen als Abschnitte auf der Übersicht und sind nur
   // über Anker erreichbar — daher die zwei unterschiedlichen Linkformen.
   // `position` steuert den Bildausschnitt, wo die Mitte nicht das Motiv trifft.
+  // Die zehn Projekte in Christians Reihenfolge.
+  // TODO: Bilder kommen von Christian (er waehlt je Projekt das beste aus).
+  // TODO: Projektnummer 9 im Screenshot abgeschnitten — vollstaendigen Namen
+  //       nachtragen.
+  // TODO: Einzel-Links fehlen fuer die meisten; bis dahin zeigen sie auf die
+  //       Projektuebersicht. Lend Living und Riegler Downtown haben eigene Ziele.
+  //
+  // `featured` = die beiden grossen Kacheln. Derzeit stehen sie auf den zwei
+  // Projekten, fuer die schon ein Bild vorliegt, damit der Preview beurteilbar
+  // ist — welche zwei final gross laufen, entscheidet Christian.
   projects: [
     {
-      name: 'Lend Living',
-      href: 'https://rieglerundpartner.at/aktuelle-projekte/lend-living/',
-      image: 'lend-living.jpg',
+      name: 'Ölberg – Yacht',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: '',
       position: '',
+      featured: false,
     },
     {
-      name: 'Sundown Living',
-      href: 'https://rieglerundpartner.at/aktuelle-projekte/sundown-living/',
-      image: 'sundown-living.jpg',
+      name: 'Amalfi – St. Peter',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: '',
       position: '',
+      featured: false,
     },
     {
-      name: 'Villenblick 6',
-      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/#2553',
-      image: 'villenblick-6.jpg',
+      name: 'Geidorf-Living',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: 'geidorf-living.jpg',
       position: '',
+      featured: true,
+    },
+    {
+      name: 'Wine Yard Residences',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: '',
+      position: '',
+      featured: false,
     },
     {
       name: 'Riegler Downtown',
       href: 'https://rieglerundpartner.at/fertiggestellte-projekte/#407',
       image: 'riegler-downtown.jpg',
       position: '',
+      featured: false,
+    },
+    {
+      name: 'Brünnerstrasse',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: '',
+      position: '',
+      featured: false,
+    },
+    {
+      name: 'Hannover – Close',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: '',
+      position: '',
+      featured: false,
+    },
+    {
+      name: 'Ölberg Zwei',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: '',
+      position: '',
+      featured: false,
+    },
+    {
+      name: 'Bürokomplex 209 – 211',
+      href: 'https://rieglerundpartner.at/fertiggestellte-projekte/',
+      image: '',
+      position: '',
+      featured: false,
+    },
+    {
+      name: 'Lend Living',
+      href: 'https://rieglerundpartner.at/aktuelle-projekte/lend-living/',
+      image: 'lend-living.jpg',
+      position: '',
+      featured: true,
     },
   ],
   allProjects: 'alle Projekte',

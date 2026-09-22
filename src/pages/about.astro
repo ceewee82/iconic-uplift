@@ -1,0 +1,267 @@
+---
+// About Us — PREVIEW, bewusst noch nicht in der Navigation verlinkt.
+// Copy ist ein Entwurf (siehe src/content/de/about.ts), Zahlen unbestätigt.
+import { Picture } from 'astro:assets';
+import Page from '../layouts/Page.astro';
+import TrackRecord from '../components/TrackRecord.astro';
+import Milestones from '../components/Milestones.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { about } from '../content/de/about';
+import { legal } from '../content/de/global';
+import portrait from '../assets/img/team/herbert-riegler.jpg';
+---
+
+<Page title={about.seo.title} description={about.seo.description}>
+  <!-- Hero mit Portrait -->
+  <section class="hero border-b border-[var(--color-line)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-[52fr_48fr] lg:gap-20">
+        <div>
+          <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+            {about.hero.eyebrow}
+          </p>
+          <h1
+            class="mt-7 text-4xl leading-[1.08] sm:text-5xl md:text-6xl"
+            data-reveal
+            data-reveal-delay="0.08"
+          >
+            {about.hero.h1}
+          </h1>
+          <p
+            class="mt-8 max-w-xl text-base leading-relaxed text-[var(--color-text-soft)] md:text-lg"
+            data-reveal
+            data-reveal-delay="0.16"
+          >
+            {about.hero.sub}
+          </p>
+        </div>
+
+        <figure class="portrait-wrap" data-reveal data-reveal-delay="0.24">
+          <div class="portrait">
+            <Picture
+              src={portrait}
+              formats={['avif', 'webp']}
+              widths={[600, 1200]}
+              sizes="(min-width: 1024px) 44vw, 92vw"
+              alt="Herbert Riegler, MBA — CEO & Founder von IconicUplift"
+              class="portrait-img"
+              loading="eager"
+            />
+            <span class="portrait-vignette" aria-hidden="true"></span>
+          </div>
+          <figcaption class="portrait-caption">{about.hero.portraitCaption}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision & Modell, warum jetzt -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <div class="grid gap-14 lg:grid-cols-[42fr_58fr] lg:gap-20">
+        <div>
+          <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+            {about.vision.eyebrow}
+          </p>
+          <h2 class="mt-7 text-3xl leading-[1.15] sm:text-4xl" data-reveal data-reveal-delay="0.08">
+            {about.vision.h2}
+          </h2>
+        </div>
+        <div>
+          <p
+            class="max-w-2xl text-base leading-relaxed text-[var(--color-text-soft)]"
+            data-reveal
+            data-reveal-delay="0.16"
+          >
+            {about.vision.body}
+          </p>
+          <ul class="mt-12 grid gap-px bg-[var(--color-line)] sm:grid-cols-3" data-reveal-group>
+            {
+              about.vision.punkte.map((p) => (
+                <li class="bg-[var(--color-surface)] p-6">
+                  <h3 class="font-[var(--font-display)] text-base text-[var(--color-text)]">
+                    {p.title}
+                  </h3>
+                  <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-soft)]">{p.text}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Warum Herbert Riegler -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+        {about.warum.eyebrow}
+      </p>
+      <h2
+        class="mt-7 max-w-4xl text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+        data-reveal
+        data-reveal-delay="0.08"
+      >
+        {about.warum.h2}
+      </h2>
+      <p
+        class="mt-8 max-w-2xl text-base leading-relaxed text-[var(--color-text-soft)]"
+        data-reveal
+        data-reveal-delay="0.16"
+      >
+        {about.warum.body}
+      </p>
+
+      <ol class="mt-14 grid gap-px bg-[var(--color-line)] sm:grid-cols-2" data-reveal-group>
+        {
+          about.warum.punkte.map((p) => (
+            <li class="bg-[var(--color-surface)] p-8 md:p-10">
+              <span class="font-[var(--font-display)] text-[0.7rem] text-[var(--color-gold)]">
+                {p.no}
+              </span>
+              <h3 class="mt-5 font-[var(--font-display)] text-xl">{p.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-soft)]">{p.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <!-- Zitat -->
+      <blockquote class="zitat" data-reveal>
+        <p class="zitat-text">„{about.zitat.text}“</p>
+        <footer class="zitat-fuss">
+          <span class="zitat-autor">{about.zitat.autor}</span>
+          <span class="zitat-rolle">{about.zitat.rolle}</span>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Kennzahlen -->
+  <Milestones />
+
+  <!-- Projekte: 2 gross + 2 Viererreihen -->
+  <section class="border-b border-[var(--color-line)] bg-[var(--color-black)]">
+    <div class="mx-auto max-w-[100rem] px-6 py-16 md:px-10 md:py-20">
+      <p class="text-[0.65rem] tracking-[0.24em] text-[var(--color-gold)]" data-reveal>
+        {about.projekte.eyebrow}
+      </p>
+      <h2
+        class="mt-7 max-w-3xl text-3xl leading-[1.15] sm:text-4xl md:text-5xl"
+        data-reveal
+        data-reveal-delay="0.08"
+      >
+        {about.projekte.h2}
+      </h2>
+      <p
+        class="mt-8 max-w-2xl text-base leading-relaxed text-[var(--color-text-soft)]"
+        data-reveal
+        data-reveal-delay="0.16"
+      >
+        {about.projekte.body}
+      </p>
+
+      <div class="mt-14">
+        <TrackRecord label="" rows={2} />
+      </div>
+
+      <p class="mt-14 max-w-3xl text-xs leading-relaxed text-[var(--color-text-dim)]">
+        {legal.disclaimer}
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    h2="Sprechen wir über Ihr Projekt."
+    body="Das Investor Pack zeigt Mechanik, Prozess und Reporting im Detail — persönlich nachgefasst."
+    secondary="call"
+    disclaimer={false}
+  />
+</Page>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(90% 70% at 78% 30%, rgba(176, 141, 87, 0.13) 0%, rgba(11, 11, 12, 0) 62%),
+      var(--color-black);
+  }
+
+  .portrait-wrap {
+    margin: 0;
+  }
+
+  .portrait {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 2;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+  }
+
+  /* Gleicher Schwarz-Weiss-Look wie die Teamportraits */
+  .portrait :global(.portrait-img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 28%;
+    filter: grayscale(1) contrast(1.2) brightness(0.8);
+  }
+
+  .portrait-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(76% 62% at 50% 40%, rgba(11, 11, 12, 0) 0%, rgba(11, 11, 12, 0.72) 100%),
+      linear-gradient(to bottom, rgba(11, 11, 12, 0.06) 0%, rgba(11, 11, 12, 0.55) 100%);
+    pointer-events: none;
+  }
+
+  .portrait-caption {
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+
+  .zitat {
+    margin: 4rem 0 0;
+    border-left: 1px solid var(--color-gold);
+    padding: 0.5rem 0 0.5rem 2rem;
+    max-width: 48rem;
+  }
+
+  .zitat-text {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 1.45;
+    color: var(--color-text);
+  }
+
+  @media (min-width: 768px) {
+    .zitat-text {
+      font-size: 1.75rem;
+    }
+  }
+
+  .zitat-fuss {
+    margin-top: 1.5rem;
+  }
+
+  .zitat-autor {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--color-gold-light);
+  }
+
+  .zitat-rolle {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+  }
+</style>
