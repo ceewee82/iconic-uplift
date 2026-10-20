@@ -63,14 +63,40 @@ jobs:
           esac
           echo "dir=$DIR" >> "$GITHUB_OUTPUT"
 
+      - name: FTP-Datenkanal diagnostizieren
+        # TEMPORAER. Der Upload stirbt beim ersten Verzeichnis-Listing mit
+        # ECONNRESET auf dem Datenkanal — in FTP und FTPS gleichermassen.
+        # Dieser Schritt zeigt, welche Adresse der Server per PASV fuer den
+        # Datenkanal nennt. Ist es eine private IP, liegt es an der
+        # Server-Konfiguration; antwortet der Port gar nicht, blockt eine
+        # Firewall. Bricht den Lauf nicht ab und wird danach wieder entfernt.
+        continue-on-error: true
+        env:
+          S: ${{ secrets.FTP_SERVER }}
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          echo "--- Laeuft Port 21 ueberhaupt? ---"
+          if timeout 15 bash -c "cat < /dev/null > /dev/tcp/$S/21" 2>/dev/null; then
+            echo "TCP 21: offen"
+          else
+            echo "TCP 21: nicht erreichbar"
+          fi
+          echo "--- PASV-Dialog (FTPS explizit) ---"
+          # Passwort zusaetzlich selbst maskieren, unabhaengig von GitHubs Maskierung.
+          curl -v --ssl-reqd --ftp-pasv --list-only --max-time 45 \
+            "ftp://$S/" --user "$U:$P" 2>&1 \
+            | sed -e "s/$P/<passwort>/g" | head -n 60 || true
+
       - name: Auf Hostinger hochladen
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # Hostinger kappt den Datenkanal, wenn unverschluesselt uebertragen
-          # wird — der Login klappt, der Upload stirbt dann mit ECONNRESET.
+          # Verschluesselt uebertragen. Behebt den ECONNRESET auf dem
+          # Datenkanal nicht (der tritt in beiden Modi auf), ist aber ohnehin
+          # richtig, solange Zugangsdaten ueber die Leitung gehen.
           protocol: ftps
           port: 21
           local-dir: ./dist/
