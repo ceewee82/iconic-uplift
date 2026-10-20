@@ -69,8 +69,17 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          # Hostinger kappt den Datenkanal, wenn unverschluesselt uebertragen
+          # wird — der Login klappt, der Upload stirbt dann mit ECONNRESET.
+          protocol: ftps
+          port: 21
           local-dir: ./dist/
           server-dir: ${{ steps.ftpdir.outputs.dir }}
           # Nur geänderte Dateien übertragen; der Zustand wird serverseitig
           # in .ftp-deploy-sync-state.json vermerkt.
           dangerous-clean-slate: false
+          # Ein leerer Webspace bedeutet Vollupload (~35 MB); die 30 s der
+          # Action reichen dafuer nicht.
+          timeout: 120000
+          # Vorlaeufig ausfuehrlich, damit im Log steht, wo es abbricht.
+          log-level: verbose
